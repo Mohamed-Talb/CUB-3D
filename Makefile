@@ -25,6 +25,8 @@ LIBFT_OBJ = $(LIBFT_SRC:.c=.o)
 # COMPILER & FLAGS
 CC = cc -g3
 FLAGS = -Wall -Wextra -Werror
+MLX_FLAGS = -I./minilibx-linux -L./minilibx-linux -lmlx -lXext -lX11
+
 
 # OUTPUT EXECUTABLE
 NAME = CUB
@@ -33,7 +35,7 @@ NAME = CUB
 all: $(NAME)
 
 $(NAME): $(CUB_OBJ) $(LIBFT_OBJ)
-	@$(CC) $(CUB_OBJ) $(LIBFT_OBJ) -lm -o $(NAME)
+	@$(CC) $(CUB_OBJ) $(MLX_FLAGS) $(LIBFT_OBJ) -lm -o $(NAME)
 
 %.o: %.c
 	@$(CC) $(FLAGS) -c $< -o $@

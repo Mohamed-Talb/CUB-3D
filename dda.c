@@ -19,6 +19,8 @@
 
 typedef struct s_dda
 {
+    double posx;
+    double posy;
     double rayx;
     double rayy;
     double sidedisty;
@@ -31,38 +33,38 @@ typedef struct s_dda
     int stepy;
 } t_dda;
 
-void initdda(t_dda *dda, t_map *map, double theta)
+void initdda(t_dda *dda, double theta)
 {
     dda->rayx = cos(theta);
     dda->rayy = sin(theta);
-    dda->mapx = (int)map->px; 
-    dda->mapy = (int)map->py;
+    dda->mapx = (int)dda->posx; 
+    dda->mapy = (int)dda->posy;
     dda->deltadistx = fabs(1 / dda->rayx); 
     dda->deltadisty = fabs(1 / dda->rayy);
     if (dda->rayx < 0)
     {
         dda->stepx = -1;
-        dda->sidedistx = (map->px - dda->mapx) * dda->deltadistx;
+        dda->sidedistx = (dda->posx - dda->mapx) * dda->deltadistx;
     }
     else
     {
         dda->stepx = 1;
-        dda->sidedistx = (dda->mapx + 1.0 - map->px) * dda->deltadistx;
+        dda->sidedistx = (dda->mapx + 1.0 - dda->posx) * dda->deltadistx;
     }
     if (dda->rayy < 0)
     {
         dda->stepy = -1;
-        dda->sidedisty = (map->py - dda->mapy) * dda->deltadisty;
+        dda->sidedisty = (dda->posy - dda->mapy) * dda->deltadisty;
     }
     else
     {
         dda->stepy = 1;
-        dda->sidedisty = (dda->mapy + 1.0 - map->py) * dda->deltadisty;
+        dda->sidedisty = (dda->mapy + 1.0 - dda->posy) * dda->deltadisty;
     }
 }
 
 
-t_ray *hitwall(t_dda *dda, t_map *map, int side, t_ray *ray)
+t_ray *hitwall(t_dda *dda, int side, t_ray *ray)
 {
     double walldist;
     double hitx;
@@ -77,11 +79,11 @@ t_ray *hitwall(t_dda *dda, t_map *map, int side, t_ray *ray)
         hitx = dda->mapx;
         if (dda->stepx < 0)
             hitx += 1.0;
-        hity = map->py + walldist * dda->rayy;
+        hity = dda->posy + walldist * dda->rayy;
     }
     else
     {
-        hitx = map->px + walldist * dda->rayx;
+        hitx = dda->posx + walldist * dda->rayx;
         hity = dda->mapy;
         if (dda->stepy < 0)
             hity += 1.0;
@@ -94,14 +96,16 @@ t_ray *hitwall(t_dda *dda, t_map *map, int side, t_ray *ray)
 }
 
 
-t_ray *dda(t_map *map, double theta)
+t_ray *dda(t_map *map, double theta, double posx, double posy)
 {
     int hit = 0;
     int side;
     theta = theta * M_PI / 180.0;
     t_dda *dda = malloc(sizeof(t_dda));
     t_ray *ray = malloc(sizeof(t_ray));
-    initdda(dda, map, theta);
+    dda->posx = posx;
+    dda->posy = posy;
+    initdda(dda, theta);
     while (hit == 0)
     {
         if (dda->sidedistx < dda->sidedisty)
@@ -116,12 +120,12 @@ t_ray *dda(t_map *map, double theta)
             dda->mapy += dda->stepy;
             side = 1;
         }
-        if (map->map[dda->mapy][dda->mapx] > 0)
+        if (map->map[dda->mapy][dda->mapx] == '1')
             hit = 1;
     }
-    hitwall(dda, map, side, ray);
-    printf("Ray hit wall at map cell (%d,%d)\n", dda->mapx, dda->mapy);
-    printf("Perpendicular distance to wall: %f\n", ray->distance);
-    printf("Exact hit coordinates on wall: (%f, %f)\n", ray->cor[0], ray->cor[1]);
+    hitwall(dda,side, ray);
+    // printf("Ray hit wall at map cell (%d,%d)\n", dda->mapx, dda->mapy);
+    // printf("Perpendicular distance to wall: %f\n", ray->distance);
+    // printf("Exact hit coordinates on wall: (%f, %f)\n", ray->cor[0], ray->cor[1]);
     return ray;
 }

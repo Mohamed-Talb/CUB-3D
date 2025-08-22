@@ -13,6 +13,16 @@
 #include <unistd.h>
 #include <math.h>
 
+# include "./minilibx-linux/mlx.h"
+#define M_PI 3.14159265358979323846
+# define WIDTH 800
+# define HEIGHT 480
+# define ESC			65307
+# define XK_LEFT		65361
+# define XK_UP			65362
+# define XK_RIGHT		65363
+# define XK_DOWN		65364
+
 typedef struct s_ray
 {
     double distance;
@@ -35,11 +45,30 @@ typedef struct s_map
     int  *f;
 }   t_map;
 
+typedef struct s_img {
+	void	*img;
+	char	*addr;
+	int		bits_per_pixel;
+	int		line_length;
+	int		endian;
+	int		wdt;
+	int		hgt;
+}				t_img;
+
 typedef struct s_game
 {
-    t_map *map;
-    char **file;
-    
+    t_map   *map;
+    t_img   screen;
+    char    **file;
+    void	*mlx;
+	void	*win;
+    double     player_x;
+    double     player_y;
+    double     fov;
+    double     step;
+    double     view_angle;
+    int     number_of_rays;
+    int     draw_frame;
 } t_game;
 
 char    *get_next_line(int fd);
@@ -60,5 +89,5 @@ void initgame(t_game **cub);
 
 
 // DDA
-t_ray *dda(t_map *map, double theta);
+t_ray *dda(t_map *map, double theta, double posx, double posy);
 #endif

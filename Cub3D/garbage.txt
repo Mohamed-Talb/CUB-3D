@@ -1,0 +1,6 @@
+# old_timestamp = time.time()
+
+
+# new_timestamp = time.time()
+# delta_time = 100 * (new_timestamp - old_timestamp)
+# old_timestamp = new_timestamp

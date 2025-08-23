@@ -89,5 +89,5 @@ void initgame(t_game **cub);
 
 
 // DDA
-t_ray *dda(t_map *map, double theta, double posx, double posy);
+t_ray dda(t_map *map, double theta, double posx, double posy);
 #endif

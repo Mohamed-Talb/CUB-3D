@@ -1,5 +1,3 @@
-
-
 #include "cub3d.h"
 
 void print_game(const t_game *game)
@@ -50,77 +48,6 @@ void print_game(const t_game *game)
     // }
 }
 
-double dda_ai(double ray_x, double ray_y, double angle_deg, char **map, int map_width, int map_height) {
-    // Convert angle to radians
-    double angle = angle_deg * M_PI / 180.0;
-    double ray_dir_x = cos(angle);
-    double ray_dir_y = sin(angle);
-
-    // Current map square (integer indices)
-    int map_x = (int)ray_x;
-    int map_y = (int)ray_y;
-
-    // Length of ray from one x or y side to next x or y side
-    double delta_dist_x = (ray_dir_x != 0) ? fabs(1.0 / ray_dir_x) : 1e30;
-    double delta_dist_y = (ray_dir_y != 0) ? fabs(1.0 / ray_dir_y) : 1e30;
-
-    // Step direction and initial sideDist
-    int step_x, step_y;
-    double side_dist_x, side_dist_y;
-
-    if (ray_dir_x < 0) {
-        step_x = -1;
-        side_dist_x = (ray_x - map_x) * delta_dist_x;
-    } else {
-        step_x = 1;
-        side_dist_x = (map_x + 1.0 - ray_x) * delta_dist_x;
-    }
-
-    if (ray_dir_y < 0) {
-        step_y = -1;
-        side_dist_y = (ray_y - map_y) * delta_dist_y;
-    } else {
-        step_y = 1;
-        side_dist_y = (map_y + 1.0 - ray_y) * delta_dist_y;
-    }
-
-    int hit = 0;
-    int side; // 0 = vertical, 1 = horizontal
-
-    while (!hit) {
-        // Jump to next map square
-        if (side_dist_x < side_dist_y) {
-            side_dist_x += delta_dist_x;
-            map_x += step_x;
-            side = 0; // vertical wall
-        } else {
-            side_dist_y += delta_dist_y;
-            map_y += step_y;
-            side = 1; // horizontal wall
-        }
-
-        // Check bounds to prevent segfaults
-        if (map_x < 0 || map_x >= map_width || map_y < 0 || map_y >= map_height) {
-            break;
-        }
-
-        // Check if ray hit a wall ('1' character)
-        if (map[map_y][map_x] == '1') {
-            hit = 1;
-        }
-    }
-
-    // Calculate perpendicular distance to wall
-    double perp_dist;
-    if (side == 0) {
-        perp_dist = (map_x - ray_x + (1 - step_x) / 2.0) / ray_dir_x;
-    } else {
-        perp_dist = (map_y - ray_y + (1 - step_y) / 2.0) / ray_dir_y;
-    }
-
-    return perp_dist;
-}
-
 int	destroy(t_game *cub)
 {
 	// free everything here and quit mlx safely
@@ -143,12 +70,11 @@ void go_direction(t_game *cub, int direction)
 
     added_x = (cub->step * direction) * cos(cub->view_angle * (M_PI / 180.0));
     added_y = (cub->step * direction) * sin(cub->view_angle * (M_PI / 180.0));
-    // printf("current pos: %d\n", cub->map->map[(int) (cub->player_x + added_x)][(int) (cub->player_y)]);
-    if (cub->map->map[(int) (cub->player_x + added_x)][(int) (cub->player_y)] == '0')
+    if (cub->map->map[(int) (cub->player_y)][(int) (cub->player_x + added_x)] == '0')
         cub->player_x += added_x;
     // else
     //     cub->player_x = adjust_colision(player.x, added_x);
-    if (cub->map->map[(int) (cub->player_x)][(int) (cub->player_y + added_y)] == '0')
+    if (cub->map->map[(int) (cub->player_y + added_y)][(int) (cub->player_x)] == '0')
         cub->player_y += added_y;
     // else
     //     cub->player_y = adjust_colision(player.y, added_y);
@@ -173,8 +99,8 @@ void set_initial_values(t_game *cub)
 {
     cub->player_x = 1.2;
     cub->player_y = 1.2;
-    cub->fov = 120;
-    cub->view_angle = 90;
+    cub->fov = 90;
+    cub->view_angle = 45;
     cub->number_of_rays = WIDTH;
     cub->step = 0.1;
 }
@@ -185,12 +111,10 @@ void draw_screen_column(t_game *cub, int start, int end, double dist)
     int line_tail;
 
     (void) end;
-    if (dist == 0)
+    if (dist <= 1)
         line_height = HEIGHT;
     else
         line_height = (int) HEIGHT / dist;
-    if (line_height > HEIGHT)
-        line_height = HEIGHT;
     line_tail = (int) (HEIGHT - line_height) / 2;
     for (int y = line_tail; y < line_height + line_tail; y++)
         my_mlx_pixel_put(&cub->screen, start, y, 0x00323232);
@@ -200,24 +124,21 @@ void draw_all_lines(t_game *cub)
 {
     double column_angle;
     double ray_angle;
-    // double distance;
-    t_ray *ray;
+    t_ray ray;
 
     column_angle = cub->fov / cub->number_of_rays;
     for (int i = 0; i < cub->number_of_rays; i++)
     {
         ray_angle = (i * column_angle) + column_angle + cub->view_angle;
-        // printf("player_x: %lf, player_y: %lf\n", cub->player_x, cub->player_y);
         ray = dda(cub->map, ray_angle - (cub->fov / 2), cub->player_x, cub->player_y);
-        // printf("distand is: %lf\n", distance);
-        draw_screen_column(cub, i, i, ray->distance);
+        draw_screen_column(cub, i, i, ray.distance);
     }
-    // exit(0);
 }
 
 int	render_next_frame(t_game *cub)
 {
-	// cub->draw_frame++;
+	cub->draw_frame++;
+    // printf("draw_frame is: %d\n", cub->draw_frame);
 	// if (cub->draw_frame > 2)
     // {
         // render 1 frame here
@@ -235,7 +156,8 @@ int	render_next_frame(t_game *cub)
         // draw_screen_column(cub, 10, 10, 7);
         draw_all_lines(cub);
         mlx_put_image_to_window(cub->mlx, cub->win, cub->screen.img, 0, 0);
-		cub->draw_frame = 0;
+		// cub->draw_frame = 0;
+        // print_mem_usage();
     // }
     return (0);
 }

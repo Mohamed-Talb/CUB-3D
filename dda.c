@@ -63,7 +63,6 @@ void initdda(t_dda *dda, double theta)
     }
 }
 
-
 t_ray *hitwall(t_dda *dda, int side, t_ray *ray)
 {
     double walldist;
@@ -95,37 +94,35 @@ t_ray *hitwall(t_dda *dda, int side, t_ray *ray)
     return ray;
 }
 
-
-t_ray *dda(t_map *map, double theta, double posx, double posy)
+t_ray dda(t_map *map, double theta, double posx, double posy)
 {
-    int hit = 0;
+    t_dda dda;
+    t_ray ray;
     int side;
+    int hit;
+
+    hit = 0;
     theta = theta * M_PI / 180.0;
-    t_dda *dda = malloc(sizeof(t_dda));
-    t_ray *ray = malloc(sizeof(t_ray));
-    dda->posx = posx;
-    dda->posy = posy;
-    initdda(dda, theta);
+    dda.posx = posx;
+    dda.posy = posy;
+    initdda(&dda, theta);
     while (hit == 0)
     {
-        if (dda->sidedistx < dda->sidedisty)
+        if (dda.sidedistx < dda.sidedisty)
         {
-            dda->sidedistx += dda->deltadistx;
-            dda->mapx += dda->stepx;
+            dda.sidedistx += dda.deltadistx;
+            dda.mapx += dda.stepx;
             side = 0;
         }
         else
         {
-            dda->sidedisty += dda->deltadisty;
-            dda->mapy += dda->stepy;
+            dda.sidedisty += dda.deltadisty;
+            dda.mapy += dda.stepy;
             side = 1;
         }
-        if (map->map[dda->mapy][dda->mapx] == '1')
+        if (map->map[dda.mapy][dda.mapx] == '1')
             hit = 1;
     }
-    hitwall(dda,side, ray);
-    // printf("Ray hit wall at map cell (%d,%d)\n", dda->mapx, dda->mapy);
-    // printf("Perpendicular distance to wall: %f\n", ray->distance);
-    // printf("Exact hit coordinates on wall: (%f, %f)\n", ray->cor[0], ray->cor[1]);
-    return ray;
+    hitwall(&dda, side, &ray);
+    return (ray);
 }

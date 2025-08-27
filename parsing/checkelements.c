@@ -17,8 +17,9 @@ void	checkelements(t_map *map)
 			c = map->map[i][j];
 			if (c == 'S' || c == 'N' || c == 'E' || c == 'W')
             {
-                map->px = j; 
-                map->py = i; 
+				// map->map[i][j] = 0;
+                map->px = j + 0.5; 
+                map->py = i + 0.5; 
                 start += 1;
             }
 			else if (c != '0' && c != '1' && c != 'S' && c != 'E' && c != 'W' && c != 'N' && c != ' ')

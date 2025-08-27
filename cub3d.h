@@ -39,13 +39,14 @@ typedef struct s_map
     char **map;
     int  m_height;
     int  m_width;
-    int  px;
-    int  py;
+    double  px;
+    double  py;
     int  *c;
     int  *f;
 }   t_map;
 
-typedef struct s_img {
+typedef struct s_img 
+{
 	void	*img;
 	char	*addr;
 	int		bits_per_pixel;
@@ -85,9 +86,13 @@ void    checkwalls(t_map *map);
 void    parser(t_game *cub, char *file);
 void    checkelements(t_map *map);
 // STRUCTES UTILES
-void initgame(t_game **cub);
+t_game *initgame();
 
 
 // DDA
 t_ray dda(t_map *map, double theta, double posx, double posy);
+
+int	destroy(t_game *cub);
+int	key_hook(int keysym, t_game *cub);
+int	render_next_frame(t_game *cub);
 #endif

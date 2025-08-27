@@ -12,7 +12,6 @@ static char *get_value(t_game *cub, int index, int skip)
 void textures(t_game *cub)
 {
     int i = 0;
-
     while (cub->file[i])
     {
         if (ft_strncmp(cub->file[i], "NO", 2) == 0)

@@ -2,6 +2,7 @@
 
 void parser(t_game *cub, char *file)
 {
+    cub->map = ft_calloc(1, sizeof(t_map));
     filecontent(cub, file);
     textures(cub);
     colors(cub);

@@ -30,6 +30,7 @@ typedef struct s_ray
     double side;
 } t_ray;
 
+
 typedef struct s_map
 {
     char *no;
@@ -45,6 +46,7 @@ typedef struct s_map
     int  *f;
 }   t_map;
 
+
 typedef struct s_img 
 {
 	void	*img;
@@ -56,10 +58,20 @@ typedef struct s_img
 	int		hgt;
 }				t_img;
 
+typedef struct s_textures
+{
+	t_img wall_no;
+	t_img wall_we;
+	t_img wall_so;
+	t_img wall_ea;
+}	t_textures;
+
+
 typedef struct s_game
 {
     t_map   *map;
     t_img   screen;
+	t_textures *textures;
     char    **file;
     void	*mlx;
 	void	*win;
@@ -86,13 +98,15 @@ void    checkwalls(t_map *map);
 void    parser(t_game *cub, char *file);
 void    checkelements(t_map *map);
 // STRUCTES UTILES
-t_game *initgame();
-
+t_game *initgame(t_game *cub);
 
 // DDA
 t_ray dda(t_map *map, double theta, double posx, double posy);
 
-int	destroy(t_game *cub);
-int	key_hook(int keysym, t_game *cub);
-int	render_next_frame(t_game *cub);
+int		destroy(t_game *cub);
+int		key_hook(int keysym, t_game *cub);
+int		render_next_frame(t_game *cub);
+void	coloring_screen(t_game *cub);
+void	my_mlx_pixel_put(t_img *img, int x, int y, int color);
+unsigned int get_pixel_from_texture(t_img *img, int x, int y);
 #endif

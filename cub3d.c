@@ -32,41 +32,76 @@ void print_game(const t_game *game)
             printf("%s\n", game->map->map[i]);
     }
     else
-    {
         printf("(map is NULL)\n");
-    }
 }
-void set_initial_values(t_game *cub)
+
+
+t_game *initgame(t_game *cub)
 {
-    cub->player_x = 1.2;
-    cub->player_y = 1.2;
+    cub->textures = ft_calloc(1, sizeof(t_textures));
+    cub->mlx = mlx_init();
+	if (cub->mlx == NULL)
+    {
+        //free
+		return (NULL);
+    }
+    cub->win = mlx_new_window(cub->mlx, WIDTH, HEIGHT, "Cub3D");
+	if (cub->win == NULL)
+    {
+        // free
+		return (NULL);
+    }
+    if (cub->screen.img == NULL)
+    {
+        cub->screen.img = mlx_new_image(cub->mlx, WIDTH, HEIGHT);
+        cub->screen.addr = mlx_get_data_addr(cub->screen.img,
+                            &cub->screen.bits_per_pixel,
+                            &cub->screen.line_length,
+                            &cub->screen.endian);
+    }
     cub->fov = 90;
     cub->view_angle = 45;
     cub->number_of_rays = WIDTH;
     cub->step = 0.1;
+    int h;
+    int y;
+    cub->textures->wall_ea.img = mlx_xpm_file_to_image(cub->mlx, cub->map->ea, &h, &y);
+    cub->textures->wall_ea.addr = mlx_get_data_addr(cub->screen.img,
+                            &cub->textures->wall_ea.bits_per_pixel,
+                            &cub->textures->wall_ea.line_length,
+                            &cub->textures->wall_ea.endian);
+    if (!cub->textures->wall_ea.img)
+    {
+        printf("wall_ea texture failed to load (path:%s)\n", cub->map->ea);
+        exit(1);
+    }
+    if (!cub->mlx || !cub->win)
+    {
+        printf("mlx or win is NULL\n");
+        exit(1);
+    }
+    cub->textures->wall_no.img = mlx_xpm_file_to_image(cub->mlx, cub->map->no, &h, &y);
+    cub->textures->wall_we.img = mlx_xpm_file_to_image(cub->mlx, cub->map->we, &h, &y);
+    cub->textures->wall_so.img = mlx_xpm_file_to_image(cub->mlx, cub->map->so, &h, &y);
+    return cub;
 }
+
+
+
 
 int main(int ac , char **av)
 {
     (void)ac;
     t_game *cub;
 
-    cub = initgame();
+    cub = ft_calloc(1, sizeof(t_game));
     parser(cub, av[1]);
-    cub->map->map[(int)cub->map->py][(int)cub->map->px] = '0';
-    // print_game(cub);
-    cub->mlx = mlx_init();
-	if (cub->mlx == NULL)
-    {
-        //free
-		return (EXIT_FAILURE);
-    }
-    cub->win = mlx_new_window(cub->mlx, WIDTH, HEIGHT, "Cub3D");
-	if (cub->win == NULL)
-    {
-        // free
-		return (EXIT_FAILURE);
-    }
+    print_game(cub);
+    initgame(cub);
+    // int x = 0;
+    // int y = 0;
+    // mlx_put_image_to_window(cub->mlx, cub->win, cub->screen.img, 0, 0);
+    // mlx_put_image_to_window(cub->mlx,cub->win, cub->textures->wall_ea, 0, 0);
     mlx_hook(cub->win, 2, 1L << 0, key_hook, cub);
     mlx_hook(cub->win, 17, 1L << 17, destroy, cub);
     mlx_loop_hook(cub->mlx, render_next_frame, cub);

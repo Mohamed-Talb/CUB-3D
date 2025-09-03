@@ -27,7 +27,10 @@ typedef struct s_ray
 {
     double distance;
     double cor[2];
+    double angle;
     double side;
+    double rayx;
+    double rayy;
 } t_ray;
 
 
@@ -109,4 +112,6 @@ int		render_next_frame(t_game *cub);
 void	coloring_screen(t_game *cub);
 void	my_mlx_pixel_put(t_img *img, int x, int y, int color);
 unsigned int get_pixel_from_texture(t_img *img, int x, int y);
+int	create_trgb(int t, int r, int g, int b);
+void draw_column(t_game *cub, int x, double dist, double wallX, t_ray *ray);
 #endif

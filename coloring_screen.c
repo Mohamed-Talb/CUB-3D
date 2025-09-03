@@ -1,9 +1,6 @@
 #include "cub3d.h"
 
-int	create_trgb(int t, int r, int g, int b)
-{
-	return (t << 24 | r << 16 | g << 8 | b);
-}
+
 
 void coloring_screen(t_game *cub)
 {
@@ -38,3 +35,26 @@ void coloring_screen(t_game *cub)
         y++;
     }
 }
+
+
+
+
+// void draw_column(t_game *cub, int start, int end, double dist)
+// {
+//     int y;
+//     int lineh;
+//     int linet;
+
+//     (void) end;
+//     if (dist <= 1)
+//         lineh = HEIGHT;
+//     else
+//         lineh = HEIGHT / dist;
+//     linet = (HEIGHT - lineh) / 2;
+//     y = linet;
+//     while (y < lineh + linet)
+//     {
+//         my_mlx_pixel_put(&cub->screen, start, y, 0x00323232);
+//         y++;
+//     }
+// }

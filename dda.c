@@ -124,5 +124,8 @@ t_ray dda(t_map *map, double theta, double posx, double posy)
             hit = 1;
     }
     hitwall(&dda, side, &ray);
+    ray.angle = theta;
+    ray.rayx = dda.rayx;
+    ray.rayy = dda.rayy;
     return (ray);
 }

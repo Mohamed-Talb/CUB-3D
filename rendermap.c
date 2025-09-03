@@ -8,7 +8,6 @@ int	destroy(t_game *cub)
 }
 
 
-
 void go_direction(t_game *cub, int direction, t_map *map)
 {
 	int new_px;
@@ -46,25 +45,6 @@ int	key_hook(int keysym, t_game *cub)
 	return (0);
 }
 
-void draw_column(t_game *cub, int start, int end, double dist)
-{
-    int y;
-    int lineh;
-    int linet;
-
-    (void) end;
-    if (dist <= 1)
-        lineh = HEIGHT;
-    else
-        lineh = HEIGHT / dist;
-    linet = (HEIGHT - lineh) / 2;
-    y = linet;
-    while (y < lineh + linet)
-    {
-        my_mlx_pixel_put(&cub->screen, start, y, 0x00323232);
-        y++;
-    }
-}
 
 void draw_lines(t_game *cub, t_map *map)
 {
@@ -80,22 +60,23 @@ void draw_lines(t_game *cub, t_map *map)
         rangle = (i * cangle) + cangle + cub->view_angle;
 		rangle = rangle - (cub->fov / 2);
         ray = dda(map, rangle, map->px, map->py);
-        // double corrected_dist = ray.distance * cos(rangle - cub->view_angle);
-        draw_column(cub, i, i, ray.distance);
-        // draw_column(cub, i, i, ray.corrected_dist);
+        double angle_diff = rangle - cub->view_angle;
+        double corrected_dist = ray.distance * cos(angle_diff * (M_PI / 180.0));
+        double wallx;
+        if (ray.side == 0)
+            wallx = ray.cor[1];
+        else
+            wallx = ray.cor[0];
+        draw_column(cub, i, corrected_dist, wallx, &ray);
 		i++;
     }
 }
-
-
-
-
 
 int	render_next_frame(t_game *cub)
 {
     cub->draw_frame++;
 
-    coloring_screen(cub);
+    // coloring_screen(cub);
     draw_lines(cub, cub->map);
     mlx_put_image_to_window(cub->mlx, cub->win, cub->screen.img, 0, 0);
     return (0);

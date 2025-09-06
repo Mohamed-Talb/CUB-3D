@@ -62,10 +62,10 @@ t_game *initgame(t_game *cub)
                                 &cub->screen.endian);
     }
 
-    cub->fov = 90;
-    cub->view_angle = 45;
+    cub->fov = 60;
+    cub->view_angle = 90;
     cub->number_of_rays = WIDTH;
-    cub->step = 0.1;
+    cub->step = 0.5;
 
     cub->textures->wall_ea.img = mlx_xpm_file_to_image(cub->mlx, cub->map->ea,
                                 &cub->textures->wall_ea.wdt,
@@ -103,10 +103,6 @@ t_game *initgame(t_game *cub)
     return cub;
 }
 
-
-
-
-
 int main(int ac , char **av)
 {
     (void)ac;
@@ -125,7 +121,3 @@ int main(int ac , char **av)
     mlx_loop_hook(cub->mlx, render_next_frame, cub);
     mlx_loop(cub->mlx);
 }
-
-
-
-

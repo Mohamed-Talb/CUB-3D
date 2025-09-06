@@ -60,8 +60,7 @@ void draw_lines(t_game *cub, t_map *map)
         rangle = (i * cangle) + cangle + cub->view_angle;
 		rangle = rangle - (cub->fov / 2);
         ray = dda(map, rangle, map->px, map->py);
-        double angle_diff = rangle - cub->view_angle;
-        double corrected_dist = ray.distance * cos(angle_diff * (M_PI / 180.0));
+        double corrected_dist = ray.distance * cos((rangle - cub->view_angle) * (M_PI / 180.0));
         double wallx;
         if (ray.side == 0)
             wallx = ray.cor[1];

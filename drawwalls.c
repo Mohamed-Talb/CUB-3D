@@ -57,24 +57,26 @@ void draw_column(t_game *cub, int x, double dist, double wallx, t_ray *ray)
     t_img *texture;
     int texx;
 
-     if (dist <= 1)
+    if (dist == 0)
         lineh = HEIGHT;
     else
-        lineh = HEIGHT / dist;
+        lineh = (HEIGHT / dist);
+    lineh *= 1.5;
     get_column_limits(lineh, &starty, &endy);
     texture = select_texture(cub, ray);
     texx = (int)(wallx * texture->wdt);
     draw_ceiling(cub, x, starty);
     int y = starty;
+    starty = (HEIGHT - lineh) / 2;
     int texy;
-    int texh = texture->hgt;
     int color;
     while (y <= endy)
     {
-        texy = (y - starty) * texh / lineh;
+        texy = (y - starty) * texture->hgt / lineh;
         color = get_pixel_from_texture(texture, texx, texy);
         my_mlx_pixel_put(&cub->screen, x, y, color);
         y++;
     }
+    printf("texy is: %d\n", texy);
     draw_floor(cub, x, endy);
 }

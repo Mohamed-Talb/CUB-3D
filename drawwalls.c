@@ -1,6 +1,16 @@
 #include "cub3d.h"
 
-static void get_column_limits(int lineh, int *starty, int *endy)
+typedef struct s_column
+{
+    int lineh;
+    int starty;
+    int endy;
+    int texx;
+    t_img *texture;
+}   t_column;
+
+
+static void getlimits(int lineh, int *starty, int *endy)
 {
     *starty = (HEIGHT - lineh) / 2;
     if (*starty < 0)
@@ -28,55 +38,78 @@ static t_img *select_texture(t_game *cub, t_ray *ray)
     }
 }
 
-static void draw_ceiling(t_game *cub, int x, int starty)
+static void drawceiling(t_game *cub, int x, int starty)
 {
     int y = 0;
     int color = create_trgb(0, cub->map->c[0], cub->map->c[1], cub->map->c[2]);
     while (y < starty)
     {
         my_mlx_pixel_put(&cub->screen, x, y, color);
+        // mlx_pixel_put(cub->mlx,cub->win, x, y, color);
         y++;
     }
 }
 
-static void draw_floor(t_game *cub, int x, int endy)
+static void drawfloor(t_game *cub, int x, int endy)
 {
     int y = endy + 1;
     int color = create_trgb(0, cub->map->f[0], cub->map->f[1], cub->map->f[2]);
     while (y < HEIGHT)
     {
         my_mlx_pixel_put(&cub->screen, x, y, color);
+        // mlx_pixel_put(cub->mlx,cub->win, x, y, color);
         y++;
     }
 }
 
-void draw_column(t_game *cub, int x, double dist, double wallx, t_ray *ray)
+
+
+
+t_column init_column(t_game *cub, double dist, double wallx, t_ray *ray)
 {
-    int lineh;
-    int starty, endy;
-    t_img *texture;
-    int texx;
+    t_column col;
 
     if (dist == 0)
-        lineh = HEIGHT;
+        col.lineh = HEIGHT;
     else
-        lineh = (HEIGHT / dist);
-    lineh *= 1.5;
-    get_column_limits(lineh, &starty, &endy);
-    texture = select_texture(cub, ray);
-    texx = (int)(wallx * texture->wdt);
-    draw_ceiling(cub, x, starty);
-    int y = starty;
-    starty = (HEIGHT - lineh) / 2;
-    int texy;
+        col.lineh = HEIGHT / dist;
+    col.lineh *= 1.5;
+    getlimits(col.lineh, &col.starty, &col.endy);
+    wallx = wallx - floor(wallx); // fractional part
+    col.texture = select_texture(cub, ray);
+    col.texx = wallx * col.texture->wdt;
+    if (col.texx >= col.texture->wdt)
+        col.texx = col.texture->wdt - 1;
+    if (col.texx < 0)
+        col.texx = 0;
+    return (col);
+}
+
+
+// Wrapper = old drawcolum
+void drawcolum(t_game *cub, int x, double dist, double wallx, t_ray *ray)
+{
+    t_column col;
+    int y;
+    int texy; 
     int color;
-    while (y <= endy)
+    int adstart;
+    
+    col = init_column(cub, dist, wallx, ray);
+    y = col.starty;
+    adstart = (HEIGHT - col.lineh) / 2;
+    drawceiling(cub, x, col.starty);
+    while (y <= col.endy)
     {
-        texy = (y - starty) * texture->hgt / lineh;
-        color = get_pixel_from_texture(texture, texx, texy);
+        texy = (y - adstart) * col.texture->hgt / col.lineh;
+        if (texy >= col.texture->hgt) 
+            texy = col.texture->hgt - 1;
+        if (texy < 0)
+            texy = 0;
+        color = get_pixel_from_texture(col.texture, col.texx, texy);
         my_mlx_pixel_put(&cub->screen, x, y, color);
+        // mlx_pixel_put(cub->mlx,cub->win, x, y, color);
         y++;
     }
-    printf("texy is: %d\n", texy);
-    draw_floor(cub, x, endy);
+    drawfloor(cub, x, col.endy);
 }

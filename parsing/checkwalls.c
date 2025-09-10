@@ -38,7 +38,7 @@ void checkwalls(t_map *map)
         len = ft_strlen(map->map[i]);
         while(j < len)
         {
-            if (map->map[i][j] == '0')
+            if (map->map[i][j] != '1' && map->map[i][j] != ' ')
             {
                 if (find_space(map, i, j))
                 {

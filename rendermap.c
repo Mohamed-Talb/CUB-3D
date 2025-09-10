@@ -8,7 +8,8 @@ int	destroy(t_game *cub)
 }
 
 
-void go_direction(t_game *cub, int direction, t_map *map)
+
+void godirection(t_game *cub, int direction, t_map *map)
 {
 	int new_px;
     int new_py;
@@ -33,9 +34,9 @@ void go_direction(t_game *cub, int direction, t_map *map)
 int	key_hook(int keysym, t_game *cub)
 {
 	if (keysym == XK_UP)
-        go_direction(cub, 1, cub->map);
+        godirection(cub, 1, cub->map);
     else if (keysym == XK_DOWN)
-        go_direction(cub, -1, cub->map);
+        godirection(cub, -1, cub->map);
 	else if (keysym == XK_LEFT)
         cub->view_angle -= 4;
 	else if (keysym == XK_RIGHT)
@@ -48,25 +49,26 @@ int	key_hook(int keysym, t_game *cub)
 
 void draw_lines(t_game *cub, t_map *map)
 {
+    int		i;
+    t_ray  ray;
     double cangle;
     double rangle;
-	int		i;
-    t_ray  ray;
+    double cdist;
+    double wallx;
 
-    cangle = cub->fov / cub->number_of_rays;
     i = 0;
-	while(i < cub->number_of_rays)
+    cangle = cub->fov / cub->nrays;
+	while(i < cub->nrays)
     {
         rangle = (i * cangle) + cangle + cub->view_angle;
 		rangle = rangle - (cub->fov / 2);
         ray = dda(map, rangle, map->px, map->py);
-        double corrected_dist = ray.distance * cos((rangle - cub->view_angle) * (M_PI / 180.0));
-        double wallx;
+        cdist = ray.distance * cos((rangle - cub->view_angle) * (M_PI / 180.0));
         if (ray.side == 0)
             wallx = ray.cor[1];
         else
             wallx = ray.cor[0];
-        draw_column(cub, i, corrected_dist, wallx, &ray);
+        drawcolum(cub, i, cdist, wallx, &ray);
 		i++;
     }
 }

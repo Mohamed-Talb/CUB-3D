@@ -83,7 +83,7 @@ typedef struct s_game
     double     fov;
     double     step;
     double     view_angle;
-    int     number_of_rays;
+    int         nrays;
     int     draw_frame;
 } t_game;
 
@@ -113,5 +113,6 @@ void	coloring_screen(t_game *cub);
 void	my_mlx_pixel_put(t_img *img, int x, int y, int color);
 unsigned int get_pixel_from_texture(t_img *img, int x, int y);
 int	create_trgb(int t, int r, int g, int b);
-void draw_column(t_game *cub, int x, double dist, double wallX, t_ray *ray);
+void drawcolum(t_game *cub, int x, double dist, double wallX, t_ray *ray);
+t_game *initgame(t_game *cub);
 #endif

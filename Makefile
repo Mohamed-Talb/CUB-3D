@@ -1,8 +1,8 @@
 #CUB SRC
 CUB_SRC = \
-	cub3d.c \
+	cub3d.c\
 	parsing/parser.c utiles.c parsing/getfile.c structs_utiles.c get_next_line.c parsing/colors.c parsing/textures.c parsing/map.c \
-	parsing/checkwalls.c  parsing/checkelements.c dda.c rendermap.c coloring_screen.c drawwalls.c
+	parsing/checkwalls.c  parsing/checkelements.c dda.c rendermap.c drawwalls.c
 
 # LIBFT SRCS
 LIBFT_SRC = \

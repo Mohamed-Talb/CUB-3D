@@ -20,8 +20,6 @@ t_game *initgame(t_game *cub)
     return cub;
 }
 
-
-
 void drawwall(t_game *cub, int x, int y, int color)
 {
     int i = x * TILE_SIZE;
@@ -60,7 +58,6 @@ void drawcircle(int cx, int cy, float r, t_game *cub)
     }
 }
 
-
 void rendermap(t_game *cub)
 {
     int x = 0;
@@ -94,7 +91,6 @@ void rendermap(t_game *cub)
     // drawwall(cub, (int)cub->player_x, (int)cub->player_y, 0xffffff);
 
 }
-
 
 int main(int ac , char **av)
 {

@@ -1,6 +1,5 @@
 #include "cub3d.h"
 
-
 void initaddr(t_game *cub)
 {
     cub->textures->wall_ea.addr = mlx_get_data_addr(cub->textures->wall_ea.img,
@@ -20,7 +19,6 @@ void initaddr(t_game *cub)
                                 &cub->textures->wall_so.line_length,
                                 &cub->textures->wall_so.endian);
 }
-
 
 void initimg(t_game *cub)
 {
@@ -67,6 +65,6 @@ t_game *initgame(t_game *cub)
     cub->step = 0.3;
     // Screen image
     
-  
-    return cub;
+    gettimeofday(&cub->frame_interval, NULL);
+    return (cub);
 }

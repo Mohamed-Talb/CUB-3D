@@ -1,17 +1,19 @@
 #ifndef CUB3D_H
 # define CUB3D_H
 
-#include "libft/libft.h"
+# include "libft/libft.h"
+# include <sys/time.h>
+# include <limits.h>
+# include <stdlib.h>
+# include <unistd.h>
+# include <string.h>
 # include <errno.h>
 # include <fcntl.h>
-# include <limits.h>
-#include <stdlib.h>
-#include <string.h>
-#include <stdio.h>
-#include <ctype.h>
-#include <fcntl.h>
-#include <unistd.h>
-#include <math.h>
+# include <stdio.h>
+# include <ctype.h>
+# include <fcntl.h>
+# include <math.h>
+#include <stdbool.h>
 
 # include "./minilibx-linux/mlx.h"
 #define M_PI 3.14159265358979323846
@@ -75,11 +77,10 @@ typedef struct s_game
     t_map   *map;
     t_img   screen;
 	t_textures *textures;
+    struct timeval  frame_interval;
     char    **file;
     void	*mlx;
 	void	*win;
-    double     player_x;
-    double     player_y;
     double     fov;
     double     step;
     double     view_angle;

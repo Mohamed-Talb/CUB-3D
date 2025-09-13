@@ -7,14 +7,10 @@ int	destroy(t_game *cub)
 	exit(0);
 }
 
-
-
 void godirection(t_game *cub, int direction, t_map *map)
 {
 	int new_px;
     int new_py;
-    int cur_px;
-    int cur_py;
     double added_x;
     double added_y;
 	
@@ -22,14 +18,11 @@ void godirection(t_game *cub, int direction, t_map *map)
 	added_y = (cub->step * direction) * sin(cub->view_angle * (M_PI / 180.0));
     new_px = (int)(map->px + added_x);
     new_py = (int)(map->py + added_y);
-    cur_px = (int)(map->px);
-    cur_py = (int)(map->py);
-    if (map->map[cur_py][new_px] == '0')
+    if (map->map[(int) map->py][new_px] == '0')
         map->px += added_x;
-    if (map->map[new_py][cur_px] == '0')
+    if (map->map[new_py][(int) map->px] == '0')
         map->py += added_y;
 }
-
 
 int	key_hook(int keysym, t_game *cub)
 {
@@ -45,7 +38,6 @@ int	key_hook(int keysym, t_game *cub)
 		(destroy(cub));
 	return (0);
 }
-
 
 void draw_lines(t_game *cub, t_map *map)
 {
@@ -73,12 +65,33 @@ void draw_lines(t_game *cub, t_map *map)
     }
 }
 
+long	time_to_long(struct timeval timestamp)
+{
+	return (timestamp.tv_sec * 1000000 + timestamp.tv_usec);
+}
+
+int	get_timestamp(struct timeval *begining)
+{
+	struct timeval	current;
+
+	gettimeofday(&current, NULL);
+	return ((time_to_long(current) - time_to_long(*begining)) / 1000);
+}
+
+bool fps_handler(struct timeval *begining, int frequency)
+{
+    if (get_timestamp(begining) >= 1000 / frequency)
+        return true;
+    return false;
+}
+
 int	render_next_frame(t_game *cub)
 {
-    cub->draw_frame++;
-
-    // coloring_screen(cub);
-    draw_lines(cub, cub->map);
-    mlx_put_image_to_window(cub->mlx, cub->win, cub->screen.img, 0, 0);
+    if (fps_handler(&cub->frame_interval, 60))
+    {
+        // coloring_screen(cub);
+        draw_lines(cub, cub->map);
+        mlx_put_image_to_window(cub->mlx, cub->win, cub->screen.img, 0, 0);
+    }
     return (0);
 }

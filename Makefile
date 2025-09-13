@@ -1,8 +1,7 @@
 #CUB SRC
-CUB_SRC = \
-	cub3d.c\
-	parsing/parser.c utiles.c parsing/getfile.c structs_utiles.c get_next_line.c parsing/colors.c parsing/textures.c parsing/map.c \
-	parsing/checkwalls.c  parsing/checkelements.c dda.c rendermap.c drawwalls.c
+CUB_SRC = cub3d.c utiles.c structs_utiles.c get_next_line.c dda.c rendermap.c drawwalls.c\
+	parsing/parser.c parsing/getfile.c parsing/colors.c parsing/textures.c parsing/map.c\
+	parsing/checkwalls.c parsing/checkelements.c
 
 # LIBFT SRCS
 LIBFT_SRC = \
@@ -26,7 +25,6 @@ LIBFT_OBJ = $(LIBFT_SRC:.c=.o)
 CC = cc -g3
 FLAGS = -Wall -Wextra -Werror
 MLX_FLAGS = -I./minilibx-linux -L./minilibx-linux -lmlx -lXext -lX11
-
 
 # OUTPUT EXECUTABLE
 NAME = CUB

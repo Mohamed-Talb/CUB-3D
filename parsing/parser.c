@@ -10,6 +10,7 @@ void initeyes(t_game *cub)
     py = cub->map->py;
     player = cub->map->map[py][px];
     cub->fov = 60;
+    cub->projPlaneD = (WIDTH / 2.0) / tan(rad(cub->fov) / 2.0);
 
     if (player == 'N')
         cub->view_angle = 90;   // Facing North

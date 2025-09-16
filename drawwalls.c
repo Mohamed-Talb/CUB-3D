@@ -9,7 +9,6 @@ typedef struct s_column
     t_img *texture;
 }   t_column;
 
-
 static void getlimits(int lineh, int *starty, int *endy)
 {
     *starty = (HEIGHT - lineh) / 2;
@@ -62,18 +61,11 @@ static void drawfloor(t_game *cub, int x, int endy)
     }
 }
 
-
-
-
 t_column init_column(t_game *cub, double dist, double wallx, t_ray *ray)
 {
     t_column col;
 
-    if (dist == 0)
-        col.lineh = HEIGHT;
-    else
-        col.lineh = HEIGHT / dist;
-    col.lineh *= 1.5;
+    col.lineh = cub->projPlaneD / dist;
     getlimits(col.lineh, &col.starty, &col.endy);
     wallx = wallx - floor(wallx); // fractional part
     col.texture = select_texture(cub, ray);
@@ -84,7 +76,6 @@ t_column init_column(t_game *cub, double dist, double wallx, t_ray *ray)
         col.texx = 0;
     return (col);
 }
-
 
 // Wrapper = old drawcolum
 void drawcolum(t_game *cub, int x, double dist, double wallx, t_ray *ray)

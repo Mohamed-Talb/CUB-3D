@@ -7,6 +7,10 @@ void	displayerrors(char *error, int exitcode)
 	exit(exitcode);
 }
 
+double rad(double angle)
+{
+    return (angle * M_PI / 180.0);
+}
 
 void	my_mlx_pixel_put(t_img *img, int x, int y, int color)
 {

@@ -86,6 +86,7 @@ typedef struct s_game
     double     view_angle;
     int         nrays;
     int     draw_frame;
+    double projPlaneD;
 } t_game;
 
 char    *get_next_line(int fd);
@@ -101,8 +102,12 @@ void    colors(t_game *cub);
 void    checkwalls(t_map *map);
 void    parser(t_game *cub, char *file);
 void    checkelements(t_map *map);
+
 // STRUCTES UTILES
-t_game *initgame(t_game *cub);
+t_game  *initgame(t_game *cub);
+
+// UTILS
+double  rad(double angle);
 
 // DDA
 t_ray dda(t_map *map, double theta, double posx, double posy);

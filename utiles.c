@@ -1,16 +1,12 @@
 #include "cub3d.h"
 
-void	displayerrors(char *error, int exitcode)
+void	errors(char *error, int exitcode)
 {
     // free_all_adresses();
 	ft_putstr_fd(error, 2);
 	exit(exitcode);
 }
 
-double rad(double angle)
-{
-    return (angle * M_PI / 180.0);
-}
 
 void	my_mlx_pixel_put(t_img *img, int x, int y, int color)
 {

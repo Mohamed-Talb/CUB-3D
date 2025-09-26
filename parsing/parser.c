@@ -10,7 +10,6 @@ void initeyes(t_game *cub)
     py = cub->map->py;
     player = cub->map->map[py][px];
     cub->fov = 60;
-    cub->projPlaneD = (WIDTH / 2.0) / tan(rad(cub->fov) / 2.0);
 
     if (player == 'N')
         cub->view_angle = 90;   // Facing North
@@ -28,12 +27,10 @@ void parser(t_game *cub, char *file)
 {
     cub->map = ft_calloc(1, sizeof(t_map));
     filecontent(cub, file);
-    textures(cub);
-    colors(cub);
+    components(cub);
     parsemap(cub);
     cub->map->m_height = ft_strlen2(cub->map->map);
-    cub->map->m_width = ft_strlen(cub->map->map[0]);
+    mapvalidation(cub->map);
     checkwalls(cub->map);
-    checkelements(cub->map);
     initeyes(cub);
 }

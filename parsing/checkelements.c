@@ -1,6 +1,23 @@
 #include "../cub3d.h"
 
-void	checkelements(t_map *map)
+static void checkelement(t_map *map, int i, int j, int *start)
+{
+	char elem;
+
+	elem = map->map[i][j];
+	if (elem == 'S' || elem == 'N' || elem == 'E' || elem == 'W')
+	{
+		map->px = j + 0.5; 
+		map->py = i + 0.5; 
+		*start += 1;
+	}
+	else if (elem != '0' && elem != '1' && elem != 'S' 
+			&& elem != 'E' && elem != 'W'
+			&& elem != 'N' && elem != ' ')
+		errors("Error\ninvalid element\n", 1);
+}
+
+void	mapvalidation(t_map *map)
 {
 	char	c;
     int     i;
@@ -14,20 +31,11 @@ void	checkelements(t_map *map)
 		j = 0;
 		while (map->map[i][j])
 		{
-			c = map->map[i][j];
-			if (c == 'S' || c == 'N' || c == 'E' || c == 'W')
-            {
-				// map->map[i][j] = '0';
-                map->px = j + 0.5; 
-                map->py = i + 0.5; 
-                start += 1;
-            }
-			else if (c != '0' && c != '1' && c != 'S' && c != 'E' && c != 'W' && c != 'N' && c != ' ')
-				displayerrors("Error\ninvalid element\n", 1);
+			checkelement(map, i, j, &start);
 			j++;
 		}
 		i++;
 	}
 	if (start != 1)
-		displayerrors("Error\ninvalide elements\n", 1);
+		errors("Error\ninvalide elements\n", 1);
 }

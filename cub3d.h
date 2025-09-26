@@ -25,6 +25,14 @@
 # define XK_RIGHT		65363
 # define XK_DOWN		65364
 
+
+#define NO 0
+#define SO 1
+#define WE 2
+#define EA 3
+#define C  4
+#define F  5
+
 typedef struct s_ray
 {
     double distance;
@@ -47,8 +55,8 @@ typedef struct s_map
     int  m_width;
     double  px;
     double  py;
-    int  *c;
-    int  *f;
+    int  c;
+    int  f;
 }   t_map;
 
 
@@ -86,28 +94,24 @@ typedef struct s_game
     double     view_angle;
     int         nrays;
     int     draw_frame;
-    double projPlaneD;
 } t_game;
 
 char    *get_next_line(int fd);
 
-void	displayerrors(char *error, int exitcode);
+void	errors(char *error, int exitcode);
 
 
 // PARSING
 void    filecontent(t_game *cub, char *file);
 void    parsemap(t_game *cub);
 void    textures(t_game *cub);
-void    colors(t_game *cub);
+int *get_color(t_game *cub, char *str, int color);
 void    checkwalls(t_map *map);
 void    parser(t_game *cub, char *file);
-void    checkelements(t_map *map);
-
+void    mapvalidation(t_map *map);
+void    get_textures(t_game *cub, char *line, int tex);
 // STRUCTES UTILES
-t_game  *initgame(t_game *cub);
-
-// UTILS
-double  rad(double angle);
+t_game *initgame(t_game *cub);
 
 // DDA
 t_ray dda(t_map *map, double theta, double posx, double posy);
@@ -116,6 +120,8 @@ int		destroy(t_game *cub);
 int		key_hook(int keysym, t_game *cub);
 int		render_next_frame(t_game *cub);
 void	coloring_screen(t_game *cub);
+void initaddr(t_game *cub);
+void    components(t_game *cub);
 void	my_mlx_pixel_put(t_img *img, int x, int y, int color);
 unsigned int get_pixel_from_texture(t_img *img, int x, int y);
 int	create_trgb(int t, int r, int g, int b);

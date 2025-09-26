@@ -9,6 +9,7 @@ typedef struct s_column
     t_img *texture;
 }   t_column;
 
+
 static void getlimits(int lineh, int *starty, int *endy)
 {
     *starty = (HEIGHT - lineh) / 2;
@@ -40,10 +41,9 @@ static t_img *select_texture(t_game *cub, t_ray *ray)
 static void drawceiling(t_game *cub, int x, int starty)
 {
     int y = 0;
-    int color = create_trgb(0, cub->map->c[0], cub->map->c[1], cub->map->c[2]);
     while (y < starty)
     {
-        my_mlx_pixel_put(&cub->screen, x, y, color);
+        my_mlx_pixel_put(&cub->screen, x, y, cub->map->c);
         // mlx_pixel_put(cub->mlx,cub->win, x, y, color);
         y++;
     }
@@ -52,20 +52,26 @@ static void drawceiling(t_game *cub, int x, int starty)
 static void drawfloor(t_game *cub, int x, int endy)
 {
     int y = endy + 1;
-    int color = create_trgb(0, cub->map->f[0], cub->map->f[1], cub->map->f[2]);
     while (y < HEIGHT)
     {
-        my_mlx_pixel_put(&cub->screen, x, y, color);
+        my_mlx_pixel_put(&cub->screen, x, y, cub->map->f);
         // mlx_pixel_put(cub->mlx,cub->win, x, y, color);
         y++;
     }
 }
 
+
+
+
 t_column init_column(t_game *cub, double dist, double wallx, t_ray *ray)
 {
     t_column col;
 
-    col.lineh = cub->projPlaneD / dist;
+    if (dist == 0)
+        col.lineh = HEIGHT;
+    else
+        col.lineh = HEIGHT / dist;
+    col.lineh *= 1.5;
     getlimits(col.lineh, &col.starty, &col.endy);
     wallx = wallx - floor(wallx); // fractional part
     col.texture = select_texture(cub, ray);
@@ -76,6 +82,7 @@ t_column init_column(t_game *cub, double dist, double wallx, t_ray *ray)
         col.texx = 0;
     return (col);
 }
+
 
 // Wrapper = old drawcolum
 void drawcolum(t_game *cub, int x, double dist, double wallx, t_ray *ray)

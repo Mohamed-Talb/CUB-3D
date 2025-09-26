@@ -39,13 +39,8 @@ void checkwalls(t_map *map)
         while(j < len)
         {
             if (map->map[i][j] != '1' && map->map[i][j] != ' ')
-            {
                 if (find_space(map, i, j))
-                {
-                    printf("Error at map[%d][%d]: '0' adjacent to space\n", i, j);
                     displayerrors("Error\nMap is not enclosed by walls\n", 1);
-                }
-            }
             j++;
         }
         i++;

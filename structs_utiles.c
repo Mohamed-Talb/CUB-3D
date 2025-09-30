@@ -43,10 +43,10 @@ t_game *initgame(t_game *cub)
     if (cub->win == NULL)
         return (NULL);
     initscreen(cub);
+    cub->fov = 76;
     cub->nrays = WIDTH;
-    cub->step = 0.05;
-    cub->turn_angle = (double) 1;
-    cub->fov = 60;
+    cub->turn_period = 1.75;
+    cub->traverse_period = 10;
     cub->plane_length = tan((cub->fov * M_PI / 180.0) / 2);
 
     // Screen image

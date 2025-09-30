@@ -15,8 +15,8 @@
 # include <math.h>
 #include <stdbool.h>
 
-# include "./minilibx-linux/mlx.h"
-#define M_PI 3.14159265358979323846
+# include "mlx.h"
+# define M_PI 3.14159265358979323846
 # define WIDTH 800
 # define HEIGHT 480
 # define ESC			65307
@@ -24,7 +24,6 @@
 # define XK_UP			65362
 # define XK_RIGHT		65363
 # define XK_DOWN		65364
-
 
 #define NO 0
 #define SO 1
@@ -98,12 +97,12 @@ typedef struct s_game
     void	*mlx;
 	void	*win;
     double  fov;
-    double  step;
     int     nrays;
-    double  turn_angle;
     double  view_angle;
     int     draw_frame;
+    double  turn_period;
     double  plane_length;
+    double  traverse_period;
     struct timeval  frame_interval;
 } t_game;
 
@@ -121,6 +120,7 @@ void    checkwalls(t_map *map);
 void    parser(t_game *cub, char *file);
 void    mapvalidation(t_map *map);
 void    get_textures(t_game *cub, char *line, int tex);
+
 // STRUCTES UTILES
 t_game *initgame(t_game *cub);
 
@@ -129,7 +129,6 @@ t_game *initgame(t_game *cub);
 t_ray dda(t_game *cub, double ray_dir_x, double ray_dir_y);
 
 int		destroy(t_game *cub);
-void	key_hook(t_game *cub);
 // int	key_hook(int keysym, t_game *cub);
 int		render_next_frame(t_game *cub);
 void initaddr(t_game *cub);
@@ -139,4 +138,8 @@ unsigned int get_pixel_from_texture(t_img *img, int x, int y);
 int	create_trgb(int t, int r, int g, int b);
 void drawcolum(t_game *cub, int x, double dist, double wallX, t_ray *ray);
 t_game *initgame(t_game *cub);
+
+// UTILS
+double  get_timestamp(struct timeval current, struct timeval begining);
+
 #endif

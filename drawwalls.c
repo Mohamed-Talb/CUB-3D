@@ -60,18 +60,11 @@ static void drawfloor(t_game *cub, int x, int endy)
     }
 }
 
-
-
-
 t_column init_column(t_game *cub, double dist, double wallx, t_ray *ray)
 {
     t_column col;
 
-    if (dist == 0)
-        col.lineh = HEIGHT;
-    else
-        col.lineh = HEIGHT / dist;
-    // col.lineh *= 1.5;
+    col.lineh = HEIGHT / dist;
     getlimits(col.lineh, &col.starty, &col.endy);
     wallx = wallx - floor(wallx); // fractional part
     col.texture = select_texture(cub, ray);

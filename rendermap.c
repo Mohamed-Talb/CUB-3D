@@ -7,15 +7,15 @@ int	destroy(t_game *cub)
 	exit(0);
 }
 
-void godirection(t_game *cub, int direction, t_map *map)
+void godirection(t_game *cub, double step, int direction, t_map *map)
 {
 	int new_px;
     int new_py;
     double added_x;
     double added_y;
 	
-	added_x = (cub->step * direction) * cos(cub->view_angle * (M_PI / 180.0));
-	added_y = (cub->step * direction) * sin(cub->view_angle * (M_PI / 180.0));
+	added_x = (step * direction) * cos(cub->view_angle * (M_PI / 180.0));
+	added_y = (step * direction) * sin(cub->view_angle * (M_PI / 180.0));
     new_px = (int)(map->px + added_x);
     new_py = (int)(map->py + added_y);
     if (map->map[(int) map->py][new_px] == '0')
@@ -24,44 +24,22 @@ void godirection(t_game *cub, int direction, t_map *map)
         map->py += added_y;
 }
 
-void	key_hook(t_game *cub)
+void	key_hook(t_game *cub, double frames_diff)
 {
-	if (cub->keys.up == true)
-    {
-        godirection(cub, 1, cub->map);
-    }
-    if (cub->keys.down == true)
-    {
-        godirection(cub, -1, cub->map);
-    }
-	if (cub->keys.left == true)
-    {
-        cub->view_angle -= cub->turn_angle;
-        // printf("turn angle is: %f\n", cub->turn_angle);
-        // exit(0);
-    }
-	if (cub->keys.right == true)
-    {
-        cub->view_angle += cub->turn_angle;
-        // printf("turn angle is: %f\n", cub->turn_angle);
-        // exit(0);
-    }
-}
+    double step;
+    double turn;
 
-// int	key_hook(int keysym, t_game *cub)
-// {
-// 	if (keysym == XK_UP)
-//         godirection(cub, 1, cub->map);
-//     else if (keysym == XK_DOWN)
-//         godirection(cub, -1, cub->map);
-// 	else if (keysym == XK_LEFT)
-//         cub->view_angle -= 4;
-// 	else if (keysym == XK_RIGHT)
-//         cub->view_angle += 4;
-// 	else if (keysym == ESC)
-// 		(destroy(cub));
-// 	return (0);
-// }
+    step = frames_diff * cub->traverse_period;
+    turn = frames_diff * 360 / cub->turn_period;
+	if (cub->keys.up == true)
+        godirection(cub, step, 1, cub->map);
+	if (cub->keys.down == true)
+        godirection(cub, step, -1, cub->map);
+	if (cub->keys.left == true)
+        cub->view_angle -= turn;
+	if (cub->keys.right == true)
+        cub->view_angle += turn;
+}
 
 void draw_lines(t_game *cub)
 {
@@ -96,33 +74,16 @@ void draw_lines(t_game *cub)
     }
 }
 
-long	time_to_long(struct timeval timestamp)
-{
-	return (timestamp.tv_sec * 1000000 + timestamp.tv_usec);
-}
-
-int	get_timestamp(struct timeval *begining)
-{
-	struct timeval	current;
-
-	gettimeofday(&current, NULL);
-	return ((time_to_long(current) - time_to_long(*begining)) / 1000);
-}
-
-bool fps_handler(struct timeval *begining, int frequency)
-{
-    if (get_timestamp(begining) >= 1000 / frequency)
-        return true;
-    return false;
-}
-
 int	render_next_frame(t_game *cub)
 {
-    if (fps_handler(&cub->frame_interval, 60))
-    {
-        draw_lines(cub);
-        mlx_put_image_to_window(cub->mlx, cub->win, cub->screen.img, 0, 0);
-        key_hook(cub);
-    }
+    double frames_diff;
+    struct timeval	current;
+
+    gettimeofday(&current, NULL);
+    frames_diff = get_timestamp(current, cub->frame_interval);
+    cub->frame_interval = current;
+    key_hook(cub, frames_diff);
+    draw_lines(cub);
+    mlx_put_image_to_window(cub->mlx, cub->win, cub->screen.img, 0, 0);
     return (0);
 }

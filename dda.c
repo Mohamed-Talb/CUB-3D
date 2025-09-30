@@ -98,8 +98,8 @@ t_ray dda(t_game *cub, double ray_dir_x, double ray_dir_y)
     int hit;
 
     hit = 0;
-    dda.posx = cub->map->px; // to be removed
-    dda.posy = cub->map->py; // to be removed
+    dda.posx = cub->map->px; // repetitive, to be removed
+    dda.posy = cub->map->py; // repetitive, to be removed
     dda.rayx = ray_dir_x;
     dda.rayy = ray_dir_y;
     side = 0;

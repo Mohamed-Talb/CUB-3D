@@ -11,9 +11,9 @@ void initeyes(t_game *cub)
     player = cub->map->map[py][px];
 
     if (player == 'N')
-        cub->view_angle = 90;   // Facing North
+        cub->view_angle = -90;   // Facing North
     else if (player == 'S')
-        cub->view_angle = 270;  // Facing South
+        cub->view_angle = 90;  // Facing South
     else if (player == 'E')
         cub->view_angle = 0;    // Facing East
     else if (player == 'W')

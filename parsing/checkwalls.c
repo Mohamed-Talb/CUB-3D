@@ -40,7 +40,7 @@ void checkwalls(t_map *map)
         {
             if (map->map[i][j] != '1' && map->map[i][j] != ' ')
                 if (find_space(map, i, j))
-                    displayerrors("Error\nMap is not enclosed by walls\n", 1);
+                    errors("Error\nMap is not enclosed by walls\n", 1);
             j++;
         }
         i++;

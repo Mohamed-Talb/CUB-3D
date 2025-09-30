@@ -80,20 +80,31 @@ typedef struct s_textures
 }	t_textures;
 
 
+typedef struct s_keys
+{
+	bool up;
+	bool down;
+	bool left;
+	bool right;
+}	t_keys;
+
 typedef struct s_game
 {
-    t_map   *map;
-    t_img   screen;
 	t_textures *textures;
-    struct timeval  frame_interval;
+    t_map   *map;
+    t_keys  keys;
+    t_img   screen;
     char    **file;
     void	*mlx;
 	void	*win;
-    double     fov;
-    double     step;
-    double     view_angle;
-    int         nrays;
+    double  fov;
+    double  step;
+    int     nrays;
+    double  turn_angle;
+    double  view_angle;
     int     draw_frame;
+    double  plane_length;
+    struct timeval  frame_interval;
 } t_game;
 
 char    *get_next_line(int fd);
@@ -114,12 +125,13 @@ void    get_textures(t_game *cub, char *line, int tex);
 t_game *initgame(t_game *cub);
 
 // DDA
-t_ray dda(t_map *map, double theta, double posx, double posy);
+// t_ray dda(t_map *map, double theta, double posx, double posy);
+t_ray dda(t_game *cub, double ray_dir_x, double ray_dir_y);
 
 int		destroy(t_game *cub);
-int		key_hook(int keysym, t_game *cub);
+void	key_hook(t_game *cub);
+// int	key_hook(int keysym, t_game *cub);
 int		render_next_frame(t_game *cub);
-void	coloring_screen(t_game *cub);
 void initaddr(t_game *cub);
 void    components(t_game *cub);
 void	my_mlx_pixel_put(t_img *img, int x, int y, int color);

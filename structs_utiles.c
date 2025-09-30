@@ -44,7 +44,11 @@ t_game *initgame(t_game *cub)
         return (NULL);
     initscreen(cub);
     cub->nrays = WIDTH;
-    cub->step = 0.3;
+    cub->step = 0.05;
+    cub->turn_angle = (double) 1;
+    cub->fov = 60;
+    cub->plane_length = tan((cub->fov * M_PI / 180.0) / 2);
+
     // Screen image
     gettimeofday(&cub->frame_interval, NULL);
     return (cub);

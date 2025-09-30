@@ -9,7 +9,6 @@ void initeyes(t_game *cub)
     px = cub->map->px;
     py = cub->map->py;
     player = cub->map->map[py][px];
-    cub->fov = 60;
 
     if (player == 'N')
         cub->view_angle = 90;   // Facing North
@@ -21,7 +20,6 @@ void initeyes(t_game *cub)
         cub->view_angle = 180;  // Facing West
     cub->map->map[py][px] = '0';
 }
-
 
 void parser(t_game *cub, char *file)
 {

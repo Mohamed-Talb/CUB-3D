@@ -24,44 +24,75 @@ void godirection(t_game *cub, int direction, t_map *map)
         map->py += added_y;
 }
 
-int	key_hook(int keysym, t_game *cub)
+void	key_hook(t_game *cub)
 {
-	if (keysym == XK_UP)
+	if (cub->keys.up == true)
+    {
         godirection(cub, 1, cub->map);
-    else if (keysym == XK_DOWN)
+    }
+    if (cub->keys.down == true)
+    {
         godirection(cub, -1, cub->map);
-	else if (keysym == XK_LEFT)
-        cub->view_angle -= 4;
-	else if (keysym == XK_RIGHT)
-        cub->view_angle += 4;
-	else if (keysym == ESC)
-		(destroy(cub));
-	return (0);
+    }
+	if (cub->keys.left == true)
+    {
+        cub->view_angle -= cub->turn_angle;
+        // printf("turn angle is: %f\n", cub->turn_angle);
+        // exit(0);
+    }
+	if (cub->keys.right == true)
+    {
+        cub->view_angle += cub->turn_angle;
+        // printf("turn angle is: %f\n", cub->turn_angle);
+        // exit(0);
+    }
 }
 
-void draw_lines(t_game *cub, t_map *map)
-{
-    int		i;
-    t_ray  ray;
-    double cangle;
-    double rangle;
-    double cdist;
-    double wallx;
+// int	key_hook(int keysym, t_game *cub)
+// {
+// 	if (keysym == XK_UP)
+//         godirection(cub, 1, cub->map);
+//     else if (keysym == XK_DOWN)
+//         godirection(cub, -1, cub->map);
+// 	else if (keysym == XK_LEFT)
+//         cub->view_angle -= 4;
+// 	else if (keysym == XK_RIGHT)
+//         cub->view_angle += 4;
+// 	else if (keysym == ESC)
+// 		(destroy(cub));
+// 	return (0);
+// }
 
-    i = 0;
-    cangle = cub->fov / cub->nrays;
-	while(i < cub->nrays)
+void draw_lines(t_game *cub)
+{
+    int		x;
+    t_ray  ray;
+    double wallx;
+    double dir_x;
+    double dir_y;
+    double plane_x;
+    double plane_y;
+    double ray_dir_x;
+    double ray_dir_y;
+    double camera_x;
+
+    x = 0;
+    dir_x = cos(cub->view_angle * M_PI / 180.0);
+    dir_y = sin(cub->view_angle * M_PI / 180.0);
+    plane_x = -dir_y * cub->plane_length;
+    plane_y = dir_x * cub->plane_length;
+	while(x < cub->nrays)
     {
-        rangle = (i * cangle) + cangle + cub->view_angle;
-		rangle = rangle - (cub->fov / 2);
-        ray = dda(map, rangle, map->px, map->py);
-        cdist = ray.distance * cos((rangle - cub->view_angle) * (M_PI / 180.0));
+        camera_x = 2 * x / ((float) WIDTH) - 1;
+        ray_dir_x = dir_x + plane_x * camera_x;
+        ray_dir_y = dir_y + plane_y * camera_x;
+        ray = dda(cub, ray_dir_x, ray_dir_y);
         if (ray.side == 0)
             wallx = ray.cor[1];
         else
             wallx = ray.cor[0];
-        drawcolum(cub, i, cdist, wallx, &ray);
-		i++;
+        drawcolum(cub, x, ray.distance, wallx, &ray);
+		x++;
     }
 }
 
@@ -89,9 +120,9 @@ int	render_next_frame(t_game *cub)
 {
     if (fps_handler(&cub->frame_interval, 60))
     {
-        // coloring_screen(cub);
-        draw_lines(cub, cub->map);
+        draw_lines(cub);
         mlx_put_image_to_window(cub->mlx, cub->win, cub->screen.img, 0, 0);
+        key_hook(cub);
     }
     return (0);
 }

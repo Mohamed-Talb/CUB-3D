@@ -19,7 +19,6 @@ static void checkelement(t_map *map, int i, int j, int *start)
 
 void	mapvalidation(t_map *map)
 {
-	char	c;
     int     i;
     int     j;
     int     start;

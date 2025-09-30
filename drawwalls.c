@@ -71,7 +71,7 @@ t_column init_column(t_game *cub, double dist, double wallx, t_ray *ray)
         col.lineh = HEIGHT;
     else
         col.lineh = HEIGHT / dist;
-    col.lineh *= 1.5;
+    // col.lineh *= 1.5;
     getlimits(col.lineh, &col.starty, &col.endy);
     wallx = wallx - floor(wallx); // fractional part
     col.texture = select_texture(cub, ray);
@@ -82,7 +82,6 @@ t_column init_column(t_game *cub, double dist, double wallx, t_ray *ray)
         col.texx = 0;
     return (col);
 }
-
 
 // Wrapper = old drawcolum
 void drawcolum(t_game *cub, int x, double dist, double wallx, t_ray *ray)

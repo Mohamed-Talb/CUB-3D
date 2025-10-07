@@ -102,6 +102,7 @@ typedef struct s_game
     int     draw_frame;
     double  turn_period;
     double  plane_length;
+    double  collisionMargin;
     double  traverse_period;
     struct timeval  frame_interval;
 } t_game;

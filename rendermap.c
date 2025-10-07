@@ -7,21 +7,54 @@ int	destroy(t_game *cub)
 	exit(0);
 }
 
+double adjust_colision(double pos, double added_value)
+{
+    if (added_value > 0)
+        return (ceil(pos) - 0.299);
+    else
+        return (floor(pos) + 0.299);
+}
+
+int in_range(double angle)
+{
+    return (fabs(cos(angle * (M_PI / 180.0))) > sqrt(2) / 2);
+}
+
 void godirection(t_game *cub, double step, int direction, t_map *map)
 {
-	int new_px;
-    int new_py;
     double added_x;
     double added_y;
-	
+    int safe_px;
+    int safe_py;
+    int edge_decision;
+    
+    edge_decision = 0;
+    safe_px = map->px + cub->collisionMargin;
+    safe_py = map->py + cub->collisionMargin;
 	added_x = (step * direction) * cos(cub->view_angle * (M_PI / 180.0));
 	added_y = (step * direction) * sin(cub->view_angle * (M_PI / 180.0));
-    new_px = (int)(map->px + added_x);
-    new_py = (int)(map->py + added_y);
-    if (map->map[(int) map->py][new_px] == '0')
-        map->px += added_x;
-    if (map->map[new_py][(int) map->px] == '0')
-        map->py += added_y;
+    if (added_x < 0)
+        safe_px = map->px + (cub->collisionMargin * -1);
+    if (added_y < 0)
+        safe_py = map->py + (cub->collisionMargin * -1);
+    if (map->map[(int) map->py][(int) (safe_px)] == '0'
+        && map->map[(int) (safe_py)][(int) map->px] == '0'
+        && map->map[(int) (safe_py)][(int) (safe_px)] == '1')
+        edge_decision = 1 + in_range(cub->view_angle);
+    if (edge_decision != 1)
+    {
+        if (map->map[(int) map->py][(int) (safe_px)] == '0')
+            map->px += added_x;
+        else
+            map->px = adjust_colision(map->px, added_x);
+    }
+    if (edge_decision != 2)
+    {
+        if (map->map[(int) (safe_py)][(int) map->px] == '0')
+            map->py += added_y;
+        else
+            map->py = adjust_colision(map->py, added_y);
+    }
 }
 
 void	key_hook(t_game *cub, double frames_diff)

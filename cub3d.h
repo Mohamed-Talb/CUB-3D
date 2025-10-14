@@ -45,19 +45,24 @@ typedef struct s_ray
 
 typedef struct s_map
 {
-    char *no;
-    char *so;
-    char *we;
-    char *ea;
     char **map;
     int  m_height;
     int  m_width;
     double  px;
     double  py;
-    int  c;
-    int  f;
+    int  cieling;
+    int  floor;
+    char **tpaths;
 }   t_map;
 
+typedef struct s_column
+{
+    int lineh;
+    int starty;
+    int endy;
+    int texx;
+    t_img *texture;
+}   t_column;
 
 typedef struct s_img 
 {
@@ -87,23 +92,28 @@ typedef struct s_keys
 	bool right;
 }	t_keys;
 
+typedef struct s_player
+{
+    double  fov;
+    double  plane;
+    double  viewangle;
+    double  turnperiod;
+    double  traverseperiod;
+    double  collisionmargin;
+} t_player;
+
 typedef struct s_game
 {
 	t_textures *textures;
     t_map   *map;
     t_keys  keys;
     t_img   screen;
-    char    **file;
+    t_player *player;
     void	*mlx;
 	void	*win;
-    double  fov;
+    char    **file;
     int     nrays;
-    double  view_angle;
-    int     draw_frame;
-    double  turn_period;
-    double  plane_length;
-    double  collisionMargin;
-    double  traverse_period;
+    int     drawframe;
     struct timeval  frame_interval;
 } t_game;
 

@@ -29,6 +29,17 @@ void initscreen(t_game *cub)
                             &cub->screen.endian);
 }
 
+void initplayer(t_game *cub)
+{
+    cub->player = ft_calloc(1, sizeof(t_player));
+    cub->player->fov = 76;
+    cub->player->turnperiod = 1.75;
+    cub->player->traverseperiod = 8;
+    cub->player->collisionmargin = 0.3;
+    cub->player->plane = tan((cub->player->fov * M_PI / 180.0) / 2);
+
+}
+
 t_game *initgame(t_game *cub)
 {
     cub->textures = ft_calloc(1, sizeof(t_textures));
@@ -43,12 +54,6 @@ t_game *initgame(t_game *cub)
     if (cub->win == NULL)
         return (NULL);
     initscreen(cub);
-    cub->fov = 76;
-    cub->nrays = WIDTH;
-    cub->turn_period = 1.75;
-    cub->traverse_period = 8;
-    cub->collisionMargin = 0.3;
-    cub->plane_length = tan((cub->fov * M_PI / 180.0) / 2);
     // Screen image
     gettimeofday(&cub->frame_interval, NULL);
     return (cub);

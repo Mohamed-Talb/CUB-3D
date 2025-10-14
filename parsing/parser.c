@@ -2,30 +2,31 @@
 
 void initeyes(t_game *cub)
 {
-    char player;
+    char pl;
     int  px;
     int  py;
 
     px = cub->map->px;
     py = cub->map->py;
-    player = cub->map->map[py][px];
+    pl = cub->map->map[py][px];
 
-    if (player == 'N')
-        cub->view_angle = -90;   // Facing North
-    else if (player == 'S')
-        cub->view_angle = 90;  // Facing South
-    else if (player == 'E')
-        cub->view_angle = 0;    // Facing East
-    else if (player == 'W')
-        cub->view_angle = 180;  // Facing West
+    if (pl == 'N')
+        cub->player->viewangle = -90;   // Facing North
+    else if (pl == 'S')
+        cub->player->viewangle = 90;  // Facing South
+    else if (pl == 'E')
+        cub->player->viewangle = 0;    // Facing East
+    else if (pl == 'W')
+        cub->player->viewangle = 180;  // Facing West
     cub->map->map[py][px] = '0';
 }
 
 void parser(t_game *cub, char *file)
 {
     cub->map = ft_calloc(1, sizeof(t_map));
+    cub->map->tpaths = ft_calloc(1, sizeof(t_map));
     filecontent(cub, file);
-    components(cub);
+    components(cub); 
     parsemap(cub);
     cub->map->m_height = ft_strlen2(cub->map->map);
     mapvalidation(cub->map);

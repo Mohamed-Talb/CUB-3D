@@ -13,6 +13,12 @@ void get_textures(t_game *cub, char *line, int tex)
     char *texname;
     
     texname = get_value(line);
+    cub->map->tpaths[tex];
+
+}
+
+void inittextures 
+    texname = get_value(line);
     if (tex == 0)
     {
         cub->textures->wall_no.img = mlx_xpm_file_to_image(cub->mlx, texname,
@@ -44,4 +50,3 @@ void get_textures(t_game *cub, char *line, int tex)
         // free(texname);
         exit(1);
     }
-}

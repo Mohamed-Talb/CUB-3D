@@ -61,9 +61,9 @@ int *get_color(t_game *cub, char *str, int color)
         exit(1);
     }
     if (color == C)
-        cub->map->c = create_trgb(0, rgb[0], rgb[1], rgb[2]);
+        cub->map->cieling = create_trgb(0, rgb[0], rgb[1], rgb[2]);
     else if (color == F)
-        cub->map->f = create_trgb(0, rgb[0], rgb[1], rgb[2]);
+        cub->map->floor = create_trgb(0, rgb[0], rgb[1], rgb[2]);
     ft_freedouble(parts);
     return (rgb);
 }

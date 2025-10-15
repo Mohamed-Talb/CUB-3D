@@ -1,6 +1,14 @@
 #include "cub3d.h"
 
 
+typedef struct s_column
+{
+    int lineh;
+    int starty;
+    int endy;
+    int texx;
+    t_img *texture;
+}   t_column;
 
 
 static void getlimits(int lineh, int *starty, int *endy)
@@ -37,6 +45,7 @@ static void drawceiling(t_game *cub, int x, int starty)
     while (y < starty)
     {
         my_mlx_pixel_put(&cub->screen, x, y, cub->map->cieling);
+        // mlx_pixel_put(cub->mlx,cub->win, x, y, color);
         y++;
     }
 }
@@ -47,6 +56,7 @@ static void drawfloor(t_game *cub, int x, int endy)
     while (y < HEIGHT)
     {
         my_mlx_pixel_put(&cub->screen, x, y, cub->map->floor);
+        // mlx_pixel_put(cub->mlx,cub->win, x, y, color);
         y++;
     }
 }
@@ -57,7 +67,7 @@ t_column init_column(t_game *cub, double dist, double wallx, t_ray *ray)
 
     col.lineh = HEIGHT / dist;
     getlimits(col.lineh, &col.starty, &col.endy);
-    wallx = wallx - floor(wallx);
+    wallx = wallx - floor(wallx); // fractional part
     col.texture = select_texture(cub, ray);
     col.texx = wallx * col.texture->wdt;
     if (col.texx >= col.texture->wdt)

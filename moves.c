@@ -108,7 +108,7 @@ void godirection(t_game *cub, double step, int direction, t_map *map)
     if (map->map[(int) map->py][(int) (safe_px)] == '0'
         && map->map[(int) (safe_py)][(int) map->px] == '0'
         && map->map[(int) (safe_py)][(int) (safe_px)] == '1')
-        edge_decision = 1 + in_range(cub->player->viewangle);
+            edge_decision = 1 + in_range(cub->player->viewangle);
     if (edge_decision != 1)
     {
         if (map->map[(int) map->py][(int) (safe_px)] == '0')

@@ -65,14 +65,14 @@ typedef struct s_map
     char **tpaths;
 }   t_map;
 
-typedef struct s_column
-{
-    int lineh;
-    int starty;
-    int endy;
-    int texx;
-    t_img *texture;
-}   t_column;
+// typedef struct s_column
+// {
+//     int lineh;
+//     int starty;
+//     int endy;
+//     int texx;
+//     t_img *texture;
+// }   t_column;
 
 
 typedef struct s_textures

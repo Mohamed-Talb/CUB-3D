@@ -80,6 +80,7 @@ t_game *initgame(t_game *cub)
     initscreen(cub);
     init_textures(cub);
     initaddr(cub);
+    initplayer(cub);
     gettimeofday(&cub->frame_interval, NULL);
     return (cub);
 }

@@ -19,7 +19,6 @@ void godirection(t_game *cub, t_player *player, double step, int direction, t_ma
     int safe_px;
     int safe_py;
     int edge_decision;
-    
     edge_decision = 0;
     safe_px = cub->map->px + player->collisionmargin;
     safe_py = cub->map->py + player->collisionmargin;
@@ -50,13 +49,12 @@ void godirection(t_game *cub, t_player *player, double step, int direction, t_ma
     }
 }
 
-void	key_hook(t_game *cub, t_player *player, double frames_diff)
+void	key_hook(t_game *cub, t_player *player, double fdiff)
 {
     double step;
     double turn;
-
-    step = frames_diff * player->traverseperiod;
-    turn = frames_diff * 360 / player->turnperiod;
+    step = fdiff * player->traverseperiod;
+    turn = fdiff * 360 / player->turnperiod;
 	if (cub->keys.up == true)
         godirection(cub, player, step, 1, cub->map);
 	if (cub->keys.down == true)

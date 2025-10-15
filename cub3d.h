@@ -42,6 +42,16 @@ typedef struct s_ray
     double rayy;
 } t_ray;
 
+typedef struct s_img 
+{
+    void	*img;
+    char	*addr;
+    int		bits_per_pixel;
+    int		line_length;
+    int		endian;
+    int		wdt;
+    int		hgt;
+}				t_img;
 
 typedef struct s_map
 {
@@ -64,16 +74,6 @@ typedef struct s_column
     t_img *texture;
 }   t_column;
 
-typedef struct s_img 
-{
-	void	*img;
-	char	*addr;
-	int		bits_per_pixel;
-	int		line_length;
-	int		endian;
-	int		wdt;
-	int		hgt;
-}				t_img;
 
 typedef struct s_textures
 {
@@ -152,5 +152,6 @@ t_game *initgame(t_game *cub);
 
 // UTILS
 double  get_timestamp(struct timeval current, struct timeval begining);
+void	key_hook(t_game *cub, t_player *player, double fdiff);
 
 #endif

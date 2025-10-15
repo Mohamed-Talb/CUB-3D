@@ -28,15 +28,27 @@ int	set_key_release(int keysym, t_game *cub)
     return (0);
 }
 
+t_game *getmemory()
+{
+    t_game *cub;
+
+    cub = ft_calloc(1, sizeof(t_game));
+    // cub->keys;
+    cub->map = ft_calloc(1, sizeof(t_map));
+    cub->player = ft_calloc(1, sizeof(t_player));
+    cub->map->tpaths = ft_calloc(4, sizeof(char *));
+    cub->textures = ft_calloc(1, sizeof(t_textures));
+    return (cub);
+}
+
 int main(int ac , char **av)
 {
     (void)ac;
     t_game *cub;
-
-    cub = ft_calloc(1, sizeof(t_game));
-    initgame(cub);
+   
+    cub = getmemory();
     parser(cub, av[1]);
-    initaddr(cub);
+    initgame(cub);
     mlx_put_image_to_window(cub->mlx, cub->win, cub->screen.img, 0, 0);
     // mlx_hook(cub->win, 2, 1L << 0, key_hook, cub);
     mlx_hook(cub->win, 2, 1L << 0, set_key_press, cub);

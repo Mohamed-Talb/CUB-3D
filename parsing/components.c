@@ -82,12 +82,7 @@ static int check_component(t_game *cub, char *str, int *arr)
         get_color(cub, str, com);
     }
     else
-    {
-        return 0;
-        printf("Error: Map starts before all components are defined\n");
-        //errors
-        exit(1);
-    }
+        errors("Error: Map starts before all components are defined\n", 1);
     return 1;
 }
 

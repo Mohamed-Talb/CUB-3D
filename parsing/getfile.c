@@ -9,14 +9,13 @@ static int	countlines(char *file)
 	count = 0;
 	fd = open(file, O_RDONLY);
 	if (fd == -1)
-	{
-		//error
-		exit(1);
-	}
-	while ((line = get_next_line(fd)))
+		errors(strerror(errno), 1);
+	line = get_next_line(fd);
+	while (line)
 	{
 		count++;
-		free(line);
+		ft_free(line);
+		line = get_next_line(fd);
 	}
 	close(fd);
 	return (count);
@@ -33,16 +32,15 @@ void filecontent(t_game *cub, char *file)
 	cub->file = ft_malloc(sizeof(char *) * (count + 1));
 	fd = open(file, O_RDONLY);
 	if (fd == -1)
-	{
-        // errors
-		return;
-	}
+        errors(strerror(errno), 1);
 	count = 0;
-	while ((line = get_next_line(fd)))
+	line = get_next_line(fd);
+	while(line)
 	{
 		clear = ft_strtrim(line, "\n");
+		cub->file[count++] = clear;
 		ft_free(line);
-		cub->file[count++] = clear;	
+		line = get_next_line(fd);
 	}
 	cub->file[count] = NULL;
 	close(fd);

@@ -23,8 +23,6 @@ void initeyes(t_game *cub)
 
 void parser(t_game *cub, char *file)
 {
-    cub->map = ft_calloc(1, sizeof(t_map));
-    cub->map->tpaths = ft_calloc(1, sizeof(t_map));
     filecontent(cub, file);
     components(cub); 
     parsemap(cub);

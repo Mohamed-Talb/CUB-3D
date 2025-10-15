@@ -29,9 +29,37 @@ void initscreen(t_game *cub)
                             &cub->screen.endian);
 }
 
+void init_textures(t_game *cub)
+{
+    char **texnames;
+
+    texnames = cub->map->tpaths;
+    // printf("%s\n", texnames[0]);
+    // printf("%s\n", texnames[1]);
+    // printf("%s\n", texnames[2]);
+    // printf("%s\n", texnames[3]);
+    cub->textures->wall_no.img = mlx_xpm_file_to_image(cub->mlx, texnames[0],
+                        &cub->textures->wall_no.wdt,
+                        &cub->textures->wall_no.hgt);
+    cub->textures->wall_so.img = mlx_xpm_file_to_image(cub->mlx, texnames[1],
+                        &cub->textures->wall_so.wdt,
+                        &cub->textures->wall_so.hgt);
+    cub->textures->wall_we.img = mlx_xpm_file_to_image(cub->mlx, texnames[2],
+                        &cub->textures->wall_we.wdt,
+                        &cub->textures->wall_we.hgt);
+    cub->textures->wall_ea.img = mlx_xpm_file_to_image(cub->mlx, texnames[3],
+                        &cub->textures->wall_ea.wdt,
+                        &cub->textures->wall_ea.hgt);
+    if ((!cub->textures->wall_no.img) || (!cub->textures->wall_so.img) || (!cub->textures->wall_we.img) || (!cub->textures->wall_ea.img))
+    {
+        printf("Failed to load texture:\n");
+        exit(1);
+    }
+}
+
 void initplayer(t_game *cub)
 {
-    cub->player = ft_calloc(1, sizeof(t_player));
+   
     cub->player->fov = 76;
     cub->player->turnperiod = 1.75;
     cub->player->traverseperiod = 8;
@@ -42,19 +70,16 @@ void initplayer(t_game *cub)
 
 t_game *initgame(t_game *cub)
 {
-    cub->textures = ft_calloc(1, sizeof(t_textures));
-    if (!cub->textures)
-        return (NULL);
-
     cub->mlx = mlx_init();
+    cub->nrays = WIDTH;
     if (cub->mlx == NULL)
         return (NULL);
-
     cub->win = mlx_new_window(cub->mlx, WIDTH, HEIGHT, "Cub3D");
     if (cub->win == NULL)
         return (NULL);
     initscreen(cub);
-    // Screen image
+    init_textures(cub);
+    initaddr(cub);
     gettimeofday(&cub->frame_interval, NULL);
     return (cub);
 }

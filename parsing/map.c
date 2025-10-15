@@ -18,8 +18,5 @@ void parsemap(t_game *cub)
         i++;
     cub->map->map = ft_strdup2(&cub->file[i]);
     if(cub->map->map == NULL)
-    {
-        // errors
-        return ;
-    }
+        errors("Error: map doesnt exist\n", 1);
 }

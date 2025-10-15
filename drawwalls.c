@@ -36,8 +36,7 @@ static void drawceiling(t_game *cub, int x, int starty)
     int y = 0;
     while (y < starty)
     {
-        my_mlx_pixel_put(&cub->screen, x, y, cub->map->c);
-        // mlx_pixel_put(cub->mlx,cub->win, x, y, color);
+        my_mlx_pixel_put(&cub->screen, x, y, cub->map->cieling);
         y++;
     }
 }
@@ -47,8 +46,7 @@ static void drawfloor(t_game *cub, int x, int endy)
     int y = endy + 1;
     while (y < HEIGHT)
     {
-        my_mlx_pixel_put(&cub->screen, x, y, cub->map->f);
-        // mlx_pixel_put(cub->mlx,cub->win, x, y, color);
+        my_mlx_pixel_put(&cub->screen, x, y, cub->map->floor);
         y++;
     }
 }
@@ -91,7 +89,6 @@ void drawcolum(t_game *cub, int x, double dist, double wallx, t_ray *ray)
             texy = 0;
         color = get_pixel_from_texture(col.texture, col.texx, texy);
         my_mlx_pixel_put(&cub->screen, x, y, color);
-        // mlx_pixel_put(cub->mlx,cub->win, x, y, color);
         y++;
     }
     drawfloor(cub, x, col.endy);

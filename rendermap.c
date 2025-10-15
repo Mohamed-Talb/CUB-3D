@@ -49,7 +49,7 @@ int	render_next_frame(t_game *cub)
     gettimeofday(&current, NULL);
     frames_diff = get_timestamp(current, cub->frame_interval);
     cub->frame_interval = current;
-    key_hook(cub, frames_diff);
+    key_hook(cub, cub->player, frames_diff);
     draw_lines(cub, cub->player);
     mlx_put_image_to_window(cub->mlx, cub->win, cub->screen.img, 0, 0);
     return (0);

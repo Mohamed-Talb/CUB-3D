@@ -1,14 +1,6 @@
 #include "cub3d.h"
 
-int	destroy(t_game *cub)
-{
-    // free
-    (void) cub;
-	exit(0);
-}
-
-
-void draw_lines(t_game *cub, t_player *player)
+void draw_lines(t_game *cub)
 {
     int		x;
     t_ray  ray;
@@ -22,10 +14,10 @@ void draw_lines(t_game *cub, t_player *player)
     double camera_x;
 
     x = 0;
-    dir_x = cos(player->viewangle * M_PI / 180.0);
-    dir_y = sin(player->viewangle * M_PI / 180.0);
-    plane_x = -dir_y * player->plane;
-    plane_y = dir_x * player->plane;
+    dir_x = cos(cub->player->viewangle * M_PI / 180.0);
+    dir_y = sin(cub->player->viewangle * M_PI / 180.0);
+    plane_x = -dir_y * cub->player->plane;
+    plane_y = dir_x * cub->player->plane;
 	while(x < cub->nrays)
     {
         camera_x = 2 * x / ((float) WIDTH) - 1;
@@ -49,8 +41,8 @@ int	render_next_frame(t_game *cub)
     gettimeofday(&current, NULL);
     frames_diff = get_timestamp(current, cub->frame_interval);
     cub->frame_interval = current;
-    key_hook(cub, cub->player, frames_diff);
-    draw_lines(cub, cub->player);
+    key_hook(cub, frames_diff);
+    draw_lines(cub);
     mlx_put_image_to_window(cub->mlx, cub->win, cub->screen.img, 0, 0);
     return (0);
 }

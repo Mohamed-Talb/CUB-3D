@@ -57,7 +57,7 @@ t_column init_column(t_game *cub, double dist, double wallx, t_ray *ray)
 
     col.lineh = HEIGHT / dist;
     getlimits(col.lineh, &col.starty, &col.endy);
-    wallx = wallx - floor(wallx); // fractional part
+    wallx = wallx - floor(wallx);
     col.texture = select_texture(cub, ray);
     col.texx = wallx * col.texture->wdt;
     if (col.texx >= col.texture->wdt)

@@ -152,6 +152,7 @@ t_game *initgame(t_game *cub);
 
 // UTILS
 double  get_timestamp(struct timeval current, struct timeval begining);
-void	key_hook(t_game *cub, t_player *player, double fdiff);
+// void	key_hook(t_game *cub, t_player *player, double fdiff);
+void	key_hook(t_game *cub, double frames_diff);
 
 #endif

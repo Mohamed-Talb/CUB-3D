@@ -34,10 +34,6 @@ void init_textures(t_game *cub)
     char **texnames;
 
     texnames = cub->map->tpaths;
-    // printf("%s\n", texnames[0]);
-    // printf("%s\n", texnames[1]);
-    // printf("%s\n", texnames[2]);
-    // printf("%s\n", texnames[3]);
     cub->textures->wall_no.img = mlx_xpm_file_to_image(cub->mlx, texnames[0],
                         &cub->textures->wall_no.wdt,
                         &cub->textures->wall_no.hgt);

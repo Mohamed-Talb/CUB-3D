@@ -1,137 +1,47 @@
 #include "cub3d.h"
-// double adjust_colision(double pos, double added_value)
-// {
-//     if (added_value > 0)
-//         return (ceil(pos) - 0.299);
-//     else
-//         return (floor(pos) + 0.299);
-// }
 
-// int in_range(double angle)
-// {
-//     return (fabs(cos(angle * (M_PI / 180.0))) > sqrt(2) / 2);
-// }
-
-// void godirection(t_game *cub, t_player *player, double step, int direction, t_map *map)
-// {
-//     double added_x;
-//     double added_y;
-//     int safe_px;
-//     int safe_py;
-//     int edge_decision;
-//     edge_decision = 0;
-//     safe_px = cub->map->px + player->collisionmargin;
-//     safe_py = cub->map->py + player->collisionmargin;
-
-// 	added_x = (step * direction) * cos(player->viewangle * (M_PI / 180.0));
-// 	added_y = (step * direction) * sin(player->viewangle * (M_PI / 180.0));
-
-//     if (added_x < 0)
-//         safe_px = map->px + (player->collisionmargin * -1);
-//     if (added_y < 0)
-//         safe_py = map->py + (player->collisionmargin * -1);
-//     if (map->map[(int) map->py][(int) (safe_px)] == '0' && map->map[(int) (safe_py)][(int) map->px] == '0') 
-//         if (map->map[(int) (safe_py)][(int) (safe_px)] == '1')
-//             edge_decision = 1 + in_range(player->viewangle);
-//     if (edge_decision != 1)
-//     {
-//         if (map->map[(int) map->py][(int) (safe_px)] == '0')
-//             map->px += added_x;
-//         else
-//             map->px = adjust_colision(map->px, added_x);
-//     }
-//     if (edge_decision != 2)
-//     {
-//         if (map->map[(int) (safe_py)][(int) map->px] == '0')
-//             map->py += added_y;
-//         else
-//             map->py = adjust_colision(map->py, added_y);
-//     }
-// }
-
-// void	key_hook(t_game *cub, t_player *player, double fdiff)
-// {
-//     double step;
-//     double turn;
-//     step = fdiff * player->traverseperiod;
-//     turn = fdiff * 360 / player->turnperiod;
-// 	if (cub->keys.up == true)
-//         godirection(cub, player, step, 1, cub->map);
-// 	if (cub->keys.down == true)
-//         godirection(cub, player, step, -1, cub->map);
-// 	if (cub->keys.left == true)
-//         player->viewangle -= turn;
-// 	if (cub->keys.right == true)
-//         player->viewangle += turn;
-// }
-
-
-#include "cub3d.h"
-
-int	destroy(t_game *cub)
+static int isc(t_map *map, t_move move)
 {
-    // free
-    (void) cub;
-	exit(0);
-}
-
-double adjust_colision(double pos, double added_value)
-{
-    if (added_value > 0)
-        return (ceil(pos) - 0.299);
-    else
-        return (floor(pos) + 0.299);
-}
-
-int in_range(double angle)
-{
-    return (fabs(cos(angle * (M_PI / 180.0))) > sqrt(2) / 2);
+    return 
+    (
+        map->map[(int)map->py][(int)move.safe_px] == '0' &&
+        map->map[(int)move.safe_py][(int)map->px] == '0' &&
+        map->map[(int)move.safe_py][(int)move.safe_px] == '1'
+    );
 }
 
 void godirection(t_game *cub, double step, int direction, t_map *map)
 {
-    double added_x;
-    double added_y;
-    int safe_px;
-    int safe_py;
-    int edge_decision;
-    
-    edge_decision = 0;
-    safe_px = map->px + cub->player->collisionmargin;
-    safe_py = map->py + cub->player->collisionmargin;
-	added_x = (step * direction) * cos(cub->player->viewangle * (M_PI / 180.0));
-	added_y = (step * direction) * sin(cub->player->viewangle * (M_PI / 180.0));
-    if (added_x < 0)
-        safe_px = map->px + (cub->player->collisionmargin * -1);
-    if (added_y < 0)
-        safe_py = map->py + (cub->player->collisionmargin * -1);
-    if (map->map[(int) map->py][(int) (safe_px)] == '0'
-        && map->map[(int) (safe_py)][(int) map->px] == '0'
-        && map->map[(int) (safe_py)][(int) (safe_px)] == '1')
-            edge_decision = 1 + in_range(cub->player->viewangle);
-    if (edge_decision != 1)
+    t_move move;
+    int range;
+
+    move.edge_decision = 0;
+    move.added_x = (step * direction) * cos(DEG_TO_RAD(cub->player->viewangle));
+    move.added_y = (step * direction) * sin(DEG_TO_RAD(cub->player->viewangle));
+
+    move.safe_px = map->px + cub->player->collisionmargin;
+    move.safe_py = map->py + cub->player->collisionmargin;
+
+    if (move.added_x < 0)
+        move.safe_px = map->px - cub->player->collisionmargin;
+    if (move.added_y < 0)
+        move.safe_py = map->py - cub->player->collisionmargin;
+    if (isc(map, move))
     {
-        if (map->map[(int) map->py][(int) (safe_px)] == '0')
-            map->px += added_x;
-        else
-            map->px = adjust_colision(map->px, added_x);
+        range = fabs(cos(cub->player->viewangle * (M_PI / 180.0))) > sqrt(2) / 2;
+        move.edge_decision = 1 + range;
     }
-    if (edge_decision != 2)
-    {
-        if (map->map[(int) (safe_py)][(int) map->px] == '0')
-            map->py += added_y;
-        else
-            map->py = adjust_colision(map->py, added_y);
-    }
+    collision(map, move);
 }
 
-void	key_hook(t_game *cub, double frames_diff)
+
+void	key_hook(t_game *cub, double fdiff)
 {
     double step;
     double turn;
 
-    step = frames_diff * cub->player->traverseperiod;
-    turn = frames_diff * 360 / cub->player->turnperiod;
+    step = fdiff * cub->player->traverseperiod;
+    turn = fdiff * 360 / cub->player->turnperiod;
 	if (cub->keys.up == true)
         godirection(cub, step, 1, cub->map);
 	if (cub->keys.down == true)

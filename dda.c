@@ -1,37 +1,6 @@
 #include "cub3d.h"
 
-// #define MAP_WIDTH 8
-// #define MAP_HEIGHT 8
 #define M_PI 3.14159265358979323846
-
-// int worldMap[MAP_HEIGHT][MAP_WIDTH] =
-// {
-//     {1,1,1,1,1,1,1,1},
-//     {1,0,0,0,0,0,0,1},
-//     {1,0,1,0,1,0,0,1},
-//     {1,0,1,0,0,0,0,1},
-//     {1,0,0,0,1,1,0,1},
-//     {1,0,1,0,0,0,0,1},
-//     {1,0,0,0,0,0,0,1},
-//     {1,1,1,1,1,1,1,1},
-// };
-
-
-typedef struct s_dda
-{
-    double posx;
-    double posy;
-    double rayx;
-    double rayy;
-    double sidedisty;
-    double sidedistx;
-    double deltadisty;
-    double deltadistx;
-    int mapx;
-    int mapy;
-    int stepx;
-    int stepy;
-} t_dda;
 
 void initdda(t_dda *dda)
 {
@@ -61,33 +30,18 @@ void initdda(t_dda *dda)
     }
 }
 
-t_ray *hitwall(t_dda *dda, int side, t_ray *ray)
+void hitwall(t_dda *dda, int side, t_ray *ray)
 {
-    double walldist;
-    double hitx;
-    double hity;
-
     if (side == 0)
     {
-        walldist = dda->sidedistx - dda->deltadistx;
-        hitx = dda->mapx;
-        if (dda->stepx < 0)
-            hitx += 1.0;
-        hity = dda->posy + walldist * dda->rayy;
+        ray->distance = (dda->sidedistx - dda->deltadistx);
+        ray->wallx = dda->posy + ray->distance * dda->rayy;
     }
     else
     {
-        walldist = dda->sidedisty - dda->deltadisty;
-        hity = dda->mapy;
-        if (dda->stepy < 0)
-            hity += 1.0;
-        hitx = dda->posx + walldist * dda->rayx;
+        ray->distance = (dda->sidedisty - dda->deltadisty);
+        ray->wallx = dda->posx + ray->distance * dda->rayx;
     }
-    ray->distance = walldist;
-    ray->cor[0] = hitx;             
-    ray->cor[1] = hity;             
-    ray->side = side;
-    return ray;
 }
 
 t_ray dda(t_game *cub, double ray_dir_x, double ray_dir_y)

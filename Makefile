@@ -1,7 +1,7 @@
 #CUB SRC
 CUB_SRC = cub3d.c utiles.c structs_utiles.c get_next_line.c dda.c rendermap.c drawwalls.c\
 	parsing/parser.c parsing/getfile.c parsing/colors.c parsing/components.c parsing/map.c\
-	parsing/checkwalls.c parsing/checkelements.c parsing/gettex.c moves.c
+	parsing/checkwalls.c parsing/checkelements.c parsing/gettex.c moves.c keys.c collision.c
 
 # LIBFT SRCS
 LIBFT_SRC = \

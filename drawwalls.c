@@ -45,7 +45,6 @@ static void drawceiling(t_game *cub, int x, int starty)
     while (y < starty)
     {
         my_mlx_pixel_put(&cub->screen, x, y, cub->map->cieling);
-        // mlx_pixel_put(cub->mlx,cub->win, x, y, color);
         y++;
     }
 }
@@ -56,7 +55,6 @@ static void drawfloor(t_game *cub, int x, int endy)
     while (y < HEIGHT)
     {
         my_mlx_pixel_put(&cub->screen, x, y, cub->map->floor);
-        // mlx_pixel_put(cub->mlx,cub->win, x, y, color);
         y++;
     }
 }
@@ -67,7 +65,7 @@ t_column init_column(t_game *cub, double dist, double wallx, t_ray *ray)
 
     col.lineh = HEIGHT / dist;
     getlimits(col.lineh, &col.starty, &col.endy);
-    wallx = wallx - floor(wallx); // fractional part
+    wallx = wallx - floor(wallx);
     col.texture = select_texture(cub, ray);
     col.texx = wallx * col.texture->wdt;
     if (col.texx >= col.texture->wdt)
@@ -77,7 +75,6 @@ t_column init_column(t_game *cub, double dist, double wallx, t_ray *ray)
     return (col);
 }
 
-// Wrapper = old drawcolum
 void drawcolum(t_game *cub, int x, double dist, double wallx, t_ray *ray)
 {
     t_column col;

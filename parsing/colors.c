@@ -10,13 +10,15 @@ static char *get_value(t_game *cub, char *str)
         str++;
     if (*str == '\0' || ft_isdigit(*str) == 0)
     {
-        printf("Error: missing value after identifier\n");
+        printf("Error: missing value after identifier\n"); // wrong err msg should be Error\n followed by something
             //error
         exit(1);
     }
     return (str);
 }
 
+// function to be optimized
+// btw something like: C 38, 140, 4294967476 overflows and goes undetected
 int *get_color(t_game *cub, char *str, int color)
 {
     // check chars

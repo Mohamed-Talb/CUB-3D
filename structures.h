@@ -25,8 +25,6 @@ typedef struct s_draw
     t_ray   ray;
 }   t_draw;
 
-
-
 typedef struct s_dda
 {
     double posx;
@@ -82,7 +80,6 @@ typedef struct s_textures
 	t_img wall_so;
 	t_img wall_ea;
 }	t_textures;
-
 
 typedef struct s_keys
 {

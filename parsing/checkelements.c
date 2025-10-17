@@ -7,8 +7,8 @@ static void checkelement(t_map *map, int i, int j, int *start)
 	elem = map->map[i][j];
 	if (elem == 'S' || elem == 'N' || elem == 'E' || elem == 'W')
 	{
-		map->px = j + 0.5; 
-		map->py = i + 0.5; 
+		map->px = j + 0.5;
+		map->py = i + 0.5;
 		*start += 1;
 	}
 	else if (elem != '0' && elem != '1' && elem != 'S' 

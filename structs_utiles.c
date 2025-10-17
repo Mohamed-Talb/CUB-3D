@@ -55,24 +55,23 @@ void init_textures(t_game *cub)
 
 void initplayer(t_game *cub)
 {
-   
-    cub->player->fov = 76;
+    cub->player->fov = 75;
     cub->player->turnperiod = 1.75;
     cub->player->traverseperiod = 8;
     cub->player->collisionmargin = 0.3;
     cub->player->plane = tan((cub->player->fov * M_PI / 180.0) / 2);
-
 }
 
+// function needs more error handling
 t_game *initgame(t_game *cub)
 {
-    cub->mlx = mlx_init();
     cub->nrays = WIDTH;
+    cub->mlx = mlx_init();
     if (cub->mlx == NULL)
-        return (NULL);
+        return (NULL); // free and exit
     cub->win = mlx_new_window(cub->mlx, WIDTH, HEIGHT, "Cub3D");
     if (cub->win == NULL)
-        return (NULL);
+        return (NULL); // free and exit
     initscreen(cub);
     init_textures(cub);
     initaddr(cub);

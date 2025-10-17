@@ -29,14 +29,12 @@ void checkwalls(t_map *map)
 {
     int i;
     int j;
-    int len;
 
     i = 0;
     while (map->map[i])
     {
         j = 0;
-        len = ft_strlen(map->map[i]);
-        while(j < len)
+        while (map->map[i][j])
         {
             if (map->map[i][j] != '1' && map->map[i][j] != ' ')
                 if (find_space(map, i, j))

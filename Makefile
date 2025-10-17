@@ -24,7 +24,7 @@ LIBFT_OBJ = $(LIBFT_SRC:.c=.o)
 # COMPILER & FLAGS
 CC = cc -g3
 FLAGS = -Wall -Wextra -Werror
-MLX_FLAGS = -I. -L. -lmlx -lXext -lX11
+MLX_FLAGS = -I./mlx -L./mlx -lmlx -lXext -lX11
 
 # OUTPUT EXECUTABLE
 NAME = CUB

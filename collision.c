@@ -1,6 +1,5 @@
 #include "cub3d.h"
 
-
 double adjust_colision(double pos, double added_value)
 {
     if (added_value > 0)
@@ -8,7 +7,6 @@ double adjust_colision(double pos, double added_value)
     else
         return (floor(pos) + 0.299);
 }
-
 
 void collision(t_map *map, t_move move)
 {

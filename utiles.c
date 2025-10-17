@@ -2,11 +2,10 @@
 
 void	errors(char *error, int exitcode)
 {
-    // free_all_adresses();
+    // free_all_adresses(); // important
 	ft_putstr_fd(error, 2);
 	exit(exitcode);
 }
-
 
 void	my_mlx_pixel_put(t_img *img, int x, int y, int color)
 {

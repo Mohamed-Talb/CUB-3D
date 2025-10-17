@@ -79,7 +79,7 @@ static int check_component(t_game *cub, char *str, int *arr)
     {
         duplicated(com);
         arr[com] = 1;
-        get_color(cub, str, com);
+        get_color(cub, str, com); //this likely leaks
     }
     else
         errors("Error: Map starts before all components are defined\n", 1);
@@ -113,5 +113,5 @@ void components(t_game *cub)
         i++;
     }
     check_exist(arr);
-    cub->file = &cub->file[i];
+    cub->file = &cub->file[i]; // likely leaked the lines it processed, now they are unreachable memory
 }

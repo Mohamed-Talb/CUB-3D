@@ -9,7 +9,6 @@ void initeyes(t_game *cub)
     px = cub->map->px;
     py = cub->map->py;
     pl = cub->map->map[py][px];
-
     if (pl == 'N')
         cub->player->viewangle = -90;   // Facing North
     else if (pl == 'S')

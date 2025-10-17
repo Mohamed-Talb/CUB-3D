@@ -9,7 +9,7 @@ int emptyline(char *line)
     return 0;
 }
 
-
+// map doesn't support spaces in the middle
 void parsemap(t_game *cub)
 {
     int i = 0;

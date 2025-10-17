@@ -23,16 +23,16 @@ static int	countlines(char *file)
 
 void filecontent(t_game *cub, char *file)
 {
-	int     count;
-	int     fd;
-	char    *line;
-	char 	*clear;
+	int		count;
+	int		fd;
+	char	*line;
+	char	*clear;
 
 	count = countlines(file);
 	cub->file = ft_malloc(sizeof(char *) * (count + 1));
 	fd = open(file, O_RDONLY);
 	if (fd == -1)
-        errors(strerror(errno), 1);
+		errors(strerror(errno), 1);
 	count = 0;
 	line = get_next_line(fd);
 	while(line)

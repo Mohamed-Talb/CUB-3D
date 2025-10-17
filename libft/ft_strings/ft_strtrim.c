@@ -37,7 +37,7 @@ char	*ft_strtrim(char const *s1, char const *set)
 	y = ft_strlen(s1) - 1;
 	while (!is_set(s1[x], set))
 		x++;
-	while (!is_set(s1[y], set))
+	while (y >= x && !is_set(s1[y], set))
 		y--;
 	return (ft_substr(s1, x, y - x + 1));
 }

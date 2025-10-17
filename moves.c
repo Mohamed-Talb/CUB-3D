@@ -34,7 +34,6 @@ void godirection(t_game *cub, double step, int direction, t_map *map)
     collision(map, move);
 }
 
-
 void	key_hook(t_game *cub, double fdiff)
 {
     double step;

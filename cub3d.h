@@ -14,7 +14,7 @@
 # include <fcntl.h>
 # include <math.h>
 
-# include "mlx.h"
+# include "mlx/mlx.h"
 # define M_PI 3.14159265358979323846
 # define WIDTH 800
 # define HEIGHT 480

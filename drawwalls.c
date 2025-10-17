@@ -1,6 +1,5 @@
 #include "cub3d.h"
 
-
 typedef struct s_column
 {
     int lineh;
@@ -9,7 +8,6 @@ typedef struct s_column
     int texx;
     t_img *texture;
 }   t_column;
-
 
 static void getlimits(int lineh, int *starty, int *endy)
 {

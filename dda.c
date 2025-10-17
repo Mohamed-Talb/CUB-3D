@@ -48,15 +48,14 @@ t_ray dda(t_game *cub, double ray_dir_x, double ray_dir_y)
 {
     t_dda dda;
     t_ray ray;
-    int side;
-    int hit;
+    int hit; // probably could be removed
 
     hit = 0;
     dda.posx = cub->map->px; // repetitive, to be removed
     dda.posy = cub->map->py; // repetitive, to be removed
     dda.rayx = ray_dir_x;
     dda.rayy = ray_dir_y;
-    side = 0;
+    ray.side = 0;
     initdda(&dda);
     while (hit == 0)
     {
@@ -64,18 +63,18 @@ t_ray dda(t_game *cub, double ray_dir_x, double ray_dir_y)
         {
             dda.sidedistx += dda.deltadistx;
             dda.mapx += dda.stepx;
-            side = 0;
+            ray.side = 0;
         }
         else
         {
             dda.sidedisty += dda.deltadisty;
             dda.mapy += dda.stepy;
-            side = 1;
+            ray.side = 1;
         }
         if (cub->map->map[dda.mapy][dda.mapx] == '1')
             hit = 1;
     }
-    hitwall(&dda, side, &ray);
+    hitwall(&dda, ray.side, &ray);
     ray.rayx = dda.rayx;
     ray.rayy = dda.rayy;
     return (ray);

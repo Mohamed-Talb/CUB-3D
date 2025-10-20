@@ -19,7 +19,7 @@ static void	insert(char **dest, char **src, char *str, int pos)
 
 	i = 0;
 	j = 0;
-	while (src[j])
+	while (src && src[j])
 	{
 		if (i == pos)
 		{
@@ -39,15 +39,15 @@ static void	insert(char **dest, char **src, char *str, int pos)
 	dest[i] = NULL;
 }
 
-char	**ft_append2(char **src, char *str, int pos)
+char	**ft_append2(char **src, char *str)
 {
 	char	**ptr;
 
-	if (!src || !str)
+	if (!str)
 		return (NULL);
 	ptr = ft_malloc(sizeof(char *) * (ft_strlen2(src) + 2));
 	if (!ptr)
 		return (NULL);
-	insert(ptr, src, str, pos);
+	insert(ptr, src, str, ft_strlen2(src));
 	return (ptr);
 }

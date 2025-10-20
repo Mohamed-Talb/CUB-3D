@@ -1,7 +1,6 @@
 #CUB SRC
 CUB_SRC = cub3d.c utiles.c structs_utiles.c get_next_line.c dda.c rendermap.c drawwalls.c\
-	parsing/parser.c parsing/getfile.c parsing/colors.c parsing/components.c parsing/map.c\
-	parsing/checkwalls.c parsing/checkelements.c parsing/gettex.c moves.c keys.c collision.c
+	parsing/parser.c parsing/parse_helpers.c parsing/proccess_map.c moves.c keys.c collision.c
 
 # LIBFT SRCS
 LIBFT_SRC = \
@@ -15,7 +14,10 @@ LIBFT_SRC = \
 	libft/ft_strings/ft_strdup.c libft/ft_strings/ft_strdup2.c libft/ft_strings/ft_striteri.c libft/ft_strings/ft_strjoin.c libft/ft_strings/ft_strlcat.c \
 	libft/ft_strings/ft_strlcpy.c libft/ft_strings/ft_strlen.c libft/ft_strings/ft_strlen2.c libft/ft_strings/ft_strmapi.c libft/ft_strings/ft_strncmp.c \
 	libft/ft_strings/ft_strnstr.c libft/ft_strings/ft_strrchr.c libft/ft_strings/ft_strtrim.c libft/ft_strings/ft_substr.c libft/ft_strings/ft_tolower.c \
-	libft/ft_strings/ft_toupper.c libft/ft_strings/ft_uitoa.c
+	libft/ft_strings/ft_toupper.c libft/ft_strings/ft_uitoa.c \
+	libft/ft_list/ft_lstsize_bonus.c libft/ft_list/ft_lstlast_bonus.c libft/ft_list/ft_lstnew_bonus.c libft/ft_list/ft_lstadd_back_bonus.c \
+	libft/ft_list/ft_lstadd_front_bonus.c libft/ft_list/ft_lstiter_bonus.c libft/ft_list/ft_lstclear_bonus.c libft/ft_list/ft_lstdelone_bonus.c \
+	libft/ft_list/ft_lstmap_bonus.c
 
 # OBJECTS
 CUB_OBJ = $(CUB_SRC:.c=.o)
@@ -27,7 +29,7 @@ FLAGS = -Wall -Wextra -Werror
 MLX_FLAGS = -I./mlx -L./mlx -lmlx -lXext -lX11
 
 # OUTPUT EXECUTABLE
-NAME = CUB
+NAME = cub3D
 
 # RULES
 all: $(NAME)

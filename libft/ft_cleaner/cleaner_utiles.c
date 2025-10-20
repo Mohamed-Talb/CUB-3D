@@ -31,7 +31,7 @@ void	free_all_adresses(void)
 	{
 		tmp = curr;
 		curr = curr->next;
-		free(tmp->adress);
+		free(tmp->content);
 		free(tmp);
 	}
 	*head = NULL;
@@ -50,13 +50,13 @@ void	ft_free(void *ptr)
 	prev = NULL;
 	while (curr)
 	{
-		if (curr->adress == ptr)
+		if (curr->content == ptr)
 		{
 			if (prev)
 				prev->next = curr->next;
 			else
 				*head = curr->next;
-			free(curr->adress);
+			free(curr->content);
 			free(curr);
 			return ;
 		}

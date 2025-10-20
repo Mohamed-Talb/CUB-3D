@@ -99,6 +99,16 @@ typedef struct s_player
     double  collisionmargin;
 } t_player;
 
+typedef struct s_compnts
+{
+	char *path_no;
+	char *path_we;
+	char *path_so;
+	char *path_ea;
+    int     floor;
+    int     ceili;
+}	t_compnts;
+
 typedef struct s_game
 {
     t_map       *map;
@@ -109,6 +119,8 @@ typedef struct s_game
     t_img       screen;
     char        **file;
     t_player    *player;
+    t_compnts   compnts;
+    int         file_fd;
     int         drawframe;
 	t_textures  *textures;
     struct timeval  frame_interval;

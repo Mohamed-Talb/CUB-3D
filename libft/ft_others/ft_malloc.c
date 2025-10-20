@@ -12,7 +12,7 @@
 
 #include "../libft.h"
 
-static t_cleaner	*ft_lstback(t_cleaner **head, void *adress)
+t_cleaner	*ft_lstback(t_cleaner **head, void *content)
 {
 	t_cleaner	*new;
 	t_cleaner	*curr;
@@ -20,7 +20,7 @@ static t_cleaner	*ft_lstback(t_cleaner **head, void *adress)
 	new = malloc(sizeof(t_cleaner));
 	if (!new)
 		return (NULL);
-	new->adress = adress;
+	new->content = content;
 	new->next = NULL;
 	if (*head == NULL)
 	{

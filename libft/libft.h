@@ -18,14 +18,16 @@
 
 # define L_OVERFLOW 9223372036854775808ULL
 
-typedef struct s_cleaner
+typedef struct s_list
 {
-	struct s_cleaner	*next;
-	void				*adress;
-}						t_cleaner;
+    void *content;
+    struct s_list *next;
+} t_list;
+
+typedef t_list t_cleaner;
 
 // CLEANER
-t_cleaner				**gethead(void);
+t_list				**gethead(void);
 void					free_all_adresses(void);
 void					ft_free(void *ptr);
 
@@ -60,7 +62,7 @@ char					*ft_strnstr(const char *big, const char *little,
 
 // APPEND
 char					*fappend(char *org, char c);
-char					**ft_append2(char **src, char *str, int pos);
+char					**ft_append2(char **src, char *str);
 
 int						ft_tolower(int c);
 int						ft_toupper(int c);
@@ -107,5 +109,20 @@ void					*ft_malloc(size_t size);
 // 5- utils
 void					ft_putchar(char c);
 void					ft_putstr(char *s);
+
+// LIST
+int		ft_lstsize(t_list *lst);
+void	ft_lstadd_front(t_list **lst, t_list *new);
+void	ft_lstiter(t_list *lst, void (*f)(void *));
+void	ft_lstclear(t_list **lst, void (*del)(void *));
+void	ft_lstdelone(t_list *lst, void (*del)(void *));
+t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *));
+t_list	*ft_lstadd_back(t_list **lst, t_list *new);
+t_list	*ft_lstnew(void *content);
+t_list	*ft_lstlast(t_list *lst);
+
+// POINTER FUNTIONS
+void					del(void *content);
+void					del_skip(void *content);
 
 #endif

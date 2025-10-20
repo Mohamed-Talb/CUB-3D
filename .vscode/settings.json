@@ -5,6 +5,7 @@
         "stdbool.h": "c",
         "cmath": "c",
         "math.h": "c",
-        "signal.h": "c"
+        "signal.h": "c",
+        "libft.h": "c"
     }
 }

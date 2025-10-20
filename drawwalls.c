@@ -42,7 +42,7 @@ static void drawceiling(t_game *cub, int x, int starty)
     int y = 0;
     while (y < starty)
     {
-        my_mlx_pixel_put(&cub->screen, x, y, cub->map->cieling);
+        my_mlx_pixel_put(&cub->screen, x, y, cub->compnts.ceili);
         y++;
     }
 }
@@ -52,7 +52,7 @@ static void drawfloor(t_game *cub, int x, int endy)
     int y = endy + 1;
     while (y < HEIGHT)
     {
-        my_mlx_pixel_put(&cub->screen, x, y, cub->map->floor);
+        my_mlx_pixel_put(&cub->screen, x, y, cub->compnts.floor);
         y++;
     }
 }

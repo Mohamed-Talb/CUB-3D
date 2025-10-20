@@ -38,6 +38,9 @@ void	errors(char *error, int exitcode);
 
 
 // PARSING
+char    *get_trimed(int fd);
+char    *ft_substr_space(char **s);
+t_list  *tokenize(char *str, char *(*rule)(char **));
 void    filecontent(t_game *cub, char *file);
 void    parsemap(t_game *cub);
 int     *get_color(t_game *cub, char *str, int color);
@@ -45,6 +48,7 @@ void    checkwalls(t_map *map);
 void    parser(t_game *cub, char *file);
 void    mapvalidation(t_map *map);
 void    get_textures(t_game *cub, char *line, int tex);
+void    initeyes(t_game *cub);
 
 t_game *initgame(t_game *cub);
 
@@ -52,7 +56,7 @@ t_ray   dda(t_game *cub, double ray_dir_x, double ray_dir_y);
 
 int     destroy(t_game *cub);
 int     render_frame(t_game *cub);
-void    initaddr(t_game *cub);
+int     init_addr(t_game *cub);
 void    components(t_game *cub);
 void    my_mlx_pixel_put(t_img *img, int x, int y, int color);
 unsigned int get_pixel_from_texture(t_img *img, int x, int y);

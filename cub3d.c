@@ -2,8 +2,24 @@
 
 int	destroy(t_game *cub)
 {
-    // free
     (void) cub;
+    if (cub->textures->wall_no.img)
+	{
+		mlx_destroy_image(cub->mlx, cub->textures->wall_no.img);
+		mlx_destroy_image(cub->mlx, cub->textures->wall_so.img);
+		mlx_destroy_image(cub->mlx, cub->textures->wall_we.img);
+		mlx_destroy_image(cub->mlx, cub->textures->wall_ea.img);
+	}
+    if (cub->screen.img)
+		mlx_destroy_image(cub->mlx, cub->screen.img);
+    if (cub->win)
+		mlx_destroy_window(cub->mlx, cub->win);
+    if (cub->mlx)
+    {
+        mlx_destroy_display(cub->mlx);
+        free(cub->mlx);
+    }
+    free_all_adresses();
 	exit(0);
 }
 

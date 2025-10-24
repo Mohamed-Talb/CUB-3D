@@ -39,7 +39,7 @@ int	ft_atoi(const char *nptr)
 	return (r * sign);
 }
 
-long ft_atoy_get(const char *nptr, long result, int sign)
+long	ft_atoy_get(const char *nptr, long result, int sign)
 {
 	while ((*nptr > 8 && *nptr < 14) || *nptr == 32)
 		nptr++;

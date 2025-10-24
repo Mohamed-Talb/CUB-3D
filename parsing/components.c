@@ -16,7 +16,7 @@ static int	get_color(t_list *values)
 {
 	char	*colors;
 	char	**parts;
-	long		rgb[3];
+	long	rgb[3];
 	int		i;
 
 	colors = NULL;
@@ -31,7 +31,7 @@ static int	get_color(t_list *values)
 	{
 		rgb[i] = ft_atoy(parts[i]);
 		if (rgb[i] < 0 || rgb[i] > 255)
-			break;
+			break ;
 		i++;
 	}
 	if (i != 3)

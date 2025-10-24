@@ -15,7 +15,7 @@
 
 # include "/usr/include/minilibx-linux/mlx.h"
 # include "libft/libft.h"
-# include "structures.h"
+# include "game/structures.h"
 # include <ctype.h>
 # include <errno.h>
 # include <fcntl.h>
@@ -78,11 +78,16 @@ void			key_hook(t_game *cub, double frames_diff);
 t_ray			dda(t_game *cub, double ray_dir_x, double ray_dir_y);
 
 // UTILES
-int				destroy(t_game *cub);
+double			prtct_dnmtr(double value);
 int				create_trgb(int t, int r, int g, int b);
 unsigned int	get_pixel_from_texture(t_img *img, int x, int y);
 void			my_mlx_pixel_put(t_img *img, int x, int y, int color);
 double			get_timestamp(struct timeval current, struct timeval begining);
 void			drawcolum(t_game *cub, int x, t_ray *ray);
+
+// CLEANING
+int				quit(t_game *cub);
+int				destroy(t_game *cub);
+void			errors_destroy(t_game *cub, char *error, int exit_code);
 
 #endif

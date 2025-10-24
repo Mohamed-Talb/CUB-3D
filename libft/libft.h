@@ -16,6 +16,7 @@
 # include <stdlib.h>
 # include <unistd.h>
 
+# define MAX 2147483648
 # define L_OVERFLOW 9223372036854775808ULL
 
 typedef struct s_list
@@ -68,6 +69,7 @@ unsigned long long	ft_atoi_l(char *nptr);
 int					ft_strlen2(char **ptr);
 int					ft_strlen(const char *s);
 int					ft_atoi(const char *nptr);
+long				ft_atoy(const char *nptr);
 int					ft_strcmp(char *s1, char *s2);
 int					ft_strncmp(const char *s1, const char *s2, size_t n);
 

@@ -10,14 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
-
-void	errors(char *error, int exitcode)
-{
-	free_all_adresses();
-	ft_putstr_fd(error, 2);
-	exit(exitcode);
-}
+#include "../cub3d.h"
 
 long	time_to_long(struct timeval timestamp)
 {
@@ -27,4 +20,11 @@ long	time_to_long(struct timeval timestamp)
 double	get_timestamp(struct timeval current, struct timeval begining)
 {
 	return ((time_to_long(current) - time_to_long(begining)) / 1000000.0);
+}
+
+double	prtct_dnmtr(double value)
+{
+	if (value == 0)
+		return (0.0000001);
+	return (value);
 }

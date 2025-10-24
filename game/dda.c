@@ -10,14 +10,14 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "../cub3d.h"
 
 static void	initdda(t_dda *dda)
 {
 	dda->mapx = (int)dda->posx;
 	dda->mapy = (int)dda->posy;
-	dda->deltadistx = fabs(1 / dda->rayx);
-	dda->deltadisty = fabs(1 / dda->rayy);
+	dda->deltadistx = fabs(1 / prtct_dnmtr(dda->rayx));
+	dda->deltadisty = fabs(1 / prtct_dnmtr(dda->rayy));
 	if (dda->rayx < 0)
 	{
 		dda->stepx = -1;

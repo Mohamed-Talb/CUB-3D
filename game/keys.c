@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "../cub3d.h"
 
 int	set_key_press(int keysym, t_game *cub)
 {
@@ -27,7 +27,7 @@ int	set_key_press(int keysym, t_game *cub)
 	else if (keysym == XK_RIGHT)
 		cub->keys.rot_right = true;
 	else if (keysym == ESC)
-		destroy(cub);
+		(quit(cub));
 	return (0);
 }
 

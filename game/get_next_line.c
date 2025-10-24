@@ -1,4 +1,4 @@
-#include "cub3d.h"
+#include "../cub3d.h"
 
 #ifndef BUFFER_SIZE
 # define BUFFER_SIZE 1337

@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "../cub3d.h"
 
 int	init_addr(t_game *cub)
 {
@@ -78,10 +78,10 @@ t_game	*initgame(t_game *cub)
 	cub->nrays = WIDTH;
 	cub->mlx = mlx_init();
 	if (cub->mlx == NULL)
-		destroy(cub);
+		errors_destroy(cub, NULL, 1);
 	cub->win = mlx_new_window(cub->mlx, WIDTH, HEIGHT, "Cub3D");
 	if (cub->win == NULL)
-		destroy(cub);
+		errors_destroy(cub, NULL, 1);
 	initscreen(cub);
 	init_textures(cub);
 	init_player(cub);

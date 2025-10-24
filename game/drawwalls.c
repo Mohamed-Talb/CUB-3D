@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "../cub3d.h"
 
 static t_img	*select_texture(t_game *cub, t_ray *ray)
 {
@@ -89,7 +89,7 @@ void	drawcolum(t_game *cub, int x, t_ray *ray)
 	drawceiling(cub, x, col.starty);
 	while (y <= col.endy)
 	{
-		texy = (y - adstart) * col.texture->hgt / col.lineh;
+		texy = (y - adstart) * col.texture->hgt / prtct_dnmtr(col.lineh);
 		if (texy >= col.texture->hgt)
 			texy = col.texture->hgt - 1;
 		if (texy < 0)

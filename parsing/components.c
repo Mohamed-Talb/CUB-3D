@@ -16,7 +16,7 @@ static int	get_color(t_list *values)
 {
 	char	*colors;
 	char	**parts;
-	int		rgb[3];
+	long		rgb[3];
 	int		i;
 
 	colors = NULL;
@@ -29,7 +29,9 @@ static int	get_color(t_list *values)
 	i = 0;
 	while (parts[i] && i < 3)
 	{
-		rgb[i] = ft_atoi(parts[i]);
+		rgb[i] = ft_atoy(parts[i]);
+		if (rgb[i] < 0 || rgb[i] > 255)
+			break;
 		i++;
 	}
 	if (i != 3)
@@ -38,17 +40,20 @@ static int	get_color(t_list *values)
 	return (create_trgb(255, rgb[0], rgb[1], rgb[2]));
 }
 
+static int	is_textr(char *elemt)
+{
+	return (!ft_strcmp("NO", elemt) || !ft_strcmp("SO", elemt)
+		|| !ft_strcmp("WE", elemt) || !ft_strcmp("EA", elemt));
+}
+
 static void	process_component(t_compnts *compnts, char *elemt, t_list *values)
 {
-	int	is_textr;
 	int	is_color;
 	int	is_vsize;
 
-	is_textr = !ft_strcmp("NO", elemt) || !ft_strcmp("SO", elemt)
-		|| !ft_strcmp("WE", elemt) || !ft_strcmp("EA", elemt);
-	is_color = !ft_strcmp("C", elemt) || !ft_strcmp("F", elemt);
+	is_color = (!ft_strcmp("C", elemt) || !ft_strcmp("F", elemt));
 	is_vsize = ft_lstsize(values) == 1;
-	if ((!is_textr && !is_color) || (is_textr && !is_vsize))
+	if ((!is_textr(elemt) && !is_color) || (is_textr(elemt) && !is_vsize))
 		errors("Error\ninvalid component\n", 1);
 	else if (!ft_strcmp("NO", elemt) && !compnts->path_no)
 		compnts->path_no = ft_strdup(values->content);

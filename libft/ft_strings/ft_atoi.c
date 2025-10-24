@@ -38,3 +38,34 @@ int	ft_atoi(const char *nptr)
 	}
 	return (r * sign);
 }
+
+long ft_atoy_get(const char *nptr, long result, int sign)
+{
+	while ((*nptr > 8 && *nptr < 14) || *nptr == 32)
+		nptr++;
+	if (*nptr == '-' || *nptr == '+')
+	{
+		if (*nptr == '-')
+			sign = -1;
+		nptr++;
+		if (!nptr[0])
+			return (MAX);
+	}
+	else if (!ft_isdigit(*nptr))
+		return (MAX);
+	while (ft_isdigit(*nptr))
+	{
+		result = result * 10 + *nptr - 48;
+		if (result > MAX || (result == MAX && sign == 1))
+			return (MAX);
+		nptr++;
+	}
+	if (!((*nptr > 8 && *nptr < 14) || *nptr == 32 || *nptr == 0))
+		return (MAX);
+	return (((result * sign)));
+}
+
+long	ft_atoy(const char *nptr)
+{
+	return (ft_atoy_get(nptr, 0, 1));
+}

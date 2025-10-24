@@ -1,27 +1,39 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   collision.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mtaleb <mtaleb@student.1337.ma>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/10/24 09:41:41 by mtaleb            #+#    #+#             */
+/*   Updated: 2025/10/24 09:41:42 by mtaleb           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cub3d.h"
 
-double adjust_colision(double pos, double added_value)
+double	adjust_colision(double pos, double added_value)
 {
-    if (added_value > 0)
-        return (ceil(pos) - 0.299);
-    else
-        return (floor(pos) + 0.299);
+	if (added_value > 0)
+		return (ceil(pos) - 0.299);
+	else
+		return (floor(pos) + 0.299);
 }
 
-void collision(t_map *map, t_move move)
+void	collision(t_map *map, t_move move)
 {
-    if (move.edge_decision != 1)
-    {
-        if (map->map[(int)map->py][(int)move.safe_px] == '0')
-            map->px += move.added_x;
-        else
-            map->px = adjust_colision(map->px, move.added_x);
-    }
-    if (move.edge_decision != 2)
-    {
-        if (map->map[(int)move.safe_py][(int)map->px] == '0')
-            map->py += move.added_y;
-        else
-            map->py = adjust_colision(map->py, move.added_y);
-    }
+	if (move.edge_decision != 1)
+	{
+		if (map->map[(int)map->py][(int)move.safe_px] == '0')
+			map->px += move.added_x;
+		else
+			map->px = adjust_colision(map->px, move.added_x);
+	}
+	if (move.edge_decision != 2)
+	{
+		if (map->map[(int)move.safe_py][(int)map->px] == '0')
+			map->py += move.added_y;
+		else
+			map->py = adjust_colision(map->py, move.added_y);
+	}
 }

@@ -1,24 +1,25 @@
 /* ************************************************************************** */
-/*																			*/
-/*														:::	  ::::::::   */
-/*   ft_lstclear_bonus.c								:+:	  :+:	:+:   */
-/*													+:+ +:+		 +:+	 */
-/*   By: kel-mous <marvin@42.fr>					+#+  +:+	   +#+		*/
-/*												+#+#+#+#+#+   +#+		   */
-/*   Created: 2024/11/04 17:35:55 by kel-mous		  #+#	#+#			 */
-/*   Updated: 2024/11/04 17:49:44 by kel-mous		 ###   ########.fr	   */
-/*																			*/
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_lstclear_bonus.c                                :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mtaleb <mtaleb@student.1337.ma>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/10/24 11:01:49 by mtaleb            #+#    #+#             */
+/*   Updated: 2025/10/24 11:01:51 by mtaleb           ###   ########.fr       */
+/*                                                                            */
 /* ************************************************************************** */
+
 #include "../libft.h"
 
-void del(void *content)
+void	del(void *content)
 {
-    ft_free(content);
+	ft_free(content);
 }
 
-void del_skip(void *content)
+void	del_skip(void *content)
 {
-	(void) content;
+	(void)content;
 }
 
 void	ft_lstclear(t_list **lst, void (*del)(void *))

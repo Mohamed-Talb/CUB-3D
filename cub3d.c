@@ -34,7 +34,7 @@ int	main(int ac, char **av)
 	mlx_put_image_to_window(cub->mlx, cub->win, cub->screen.img, 0, 0);
 	mlx_hook(cub->win, 2, 1L << 0, set_key_press, cub);
 	mlx_hook(cub->win, 3, 1L << 1, set_key_release, cub);
-	mlx_hook(cub->win, 17, 1L << 17, destroy, cub);
+	mlx_hook(cub->win, 17, 1L << 17, quit, cub);
 	mlx_loop_hook(cub->mlx, render_frame, cub);
 	mlx_loop(cub->mlx);
 }

@@ -1,5 +1,5 @@
 #CUB SRC
-CUB_SRC = cub3d.c game/mlx_utils.c game/utils.c game/structs_utils.c game/get_next_line.c game/dda.c\
+CUB_SRC = cub3d.c game/mlx_utils.c game/utils.c game/structs_utils.c game/dda.c\
 	game/rendermap.c game/drawwalls.c game/moves.c game/keys.c game/collision.c game/clean.c\
 	parsing/parser.c parsing/parse_helpers.c parsing/proccess_map.c parsing/walls.c parsing/components.c
 
@@ -18,7 +18,7 @@ LIBFT_SRC = \
 	libft/ft_strings/ft_toupper.c libft/ft_strings/ft_uitoa.c \
 	libft/ft_list/ft_lstsize_bonus.c libft/ft_list/ft_lstlast_bonus.c libft/ft_list/ft_lstnew_bonus.c libft/ft_list/ft_lstadd_back_bonus.c \
 	libft/ft_list/ft_lstadd_front_bonus.c libft/ft_list/ft_lstiter_bonus.c libft/ft_list/ft_lstclear_bonus.c libft/ft_list/ft_lstdelone_bonus.c \
-	libft/ft_list/ft_lstmap_bonus.c
+	libft/ft_list/ft_lstmap_bonus.c libft/get_next_line/get_next_line.c
 
 # OBJECTS
 CUB_OBJ = $(CUB_SRC:.c=.o)

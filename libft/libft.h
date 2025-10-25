@@ -126,4 +126,7 @@ t_list				*ft_lstlast(t_list *lst);
 void				del(void *content);
 void				del_skip(void *content);
 
+// GET_NEXT_LINE
+char				*get_next_line(int fd);
+
 #endif

@@ -6,7 +6,7 @@
 /*   By: mtaleb <mtaleb@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/24 09:33:27 by mtaleb            #+#    #+#             */
-/*   Updated: 2025/10/24 09:37:04 by mtaleb           ###   ########.fr       */
+/*   Updated: 2025/11/14 10:50:10 by mtaleb           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,4 +91,6 @@ void	components(t_game *cub)
 		ft_free(line);
 		line = get_trimed(cub->file_fd);
 	}
+	if (found != 6)
+		errors("Error\nInvalid components\n", 1);
 }

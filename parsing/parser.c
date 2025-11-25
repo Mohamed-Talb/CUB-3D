@@ -6,7 +6,7 @@
 /*   By: mtaleb <mtaleb@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/24 09:33:08 by mtaleb            #+#    #+#             */
-/*   Updated: 2025/10/24 09:33:09 by mtaleb           ###   ########.fr       */
+/*   Updated: 2025/11/14 11:03:07 by mtaleb           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,23 +17,23 @@ void	parse_map(t_game *cub)
 	char	*line;
 
 	line = get_trimed(cub->file_fd);
-	while (!ft_strcmp(line, ""))
+	while (line && respects_set(line, " "))
 	{
 		ft_free(line);
 		line = get_trimed(cub->file_fd);
 	}
-	while (line && ft_strcmp(line, ""))
+	while (line && !respects_set(line, " "))
 	{
 		cub->map->map = ft_append2(cub->map->map, line);
 		line = get_trimed(cub->file_fd);
 	}
-	while (!ft_strcmp(line, ""))
+	while (line && respects_set(line, " "))
 	{
 		ft_free(line);
 		line = get_trimed(cub->file_fd);
 	}
-	if (line)
-		errors("Errors\nempty lines in map\n", 1);
+	if (line || !cub->map->map)
+		errors("Errors\nInvalid map\n", 1);
 }
 
 void	parser(t_game *cub, char *file)

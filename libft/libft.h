@@ -6,7 +6,7 @@
 /*   By: mtaleb <mtaleb@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/04 15:32:07 by mtaleb            #+#    #+#             */
-/*   Updated: 2025/08/10 21:00:45 by mtaleb           ###   ########.fr       */
+/*   Updated: 2025/11/10 09:32:57 by mtaleb           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,6 @@ char				**ft_append2(char **src, char *str);
 
 int					ft_tolower(int c);
 int					ft_toupper(int c);
-unsigned long long	ft_atoi_l(char *nptr);
 int					ft_strlen2(char **ptr);
 int					ft_strlen(const char *s);
 int					ft_atoi(const char *nptr);

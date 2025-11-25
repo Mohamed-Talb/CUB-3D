@@ -6,7 +6,7 @@
 /*   By: mtaleb <mtaleb@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/24 09:45:24 by mtaleb            #+#    #+#             */
-/*   Updated: 2025/10/24 09:53:30 by mtaleb           ###   ########.fr       */
+/*   Updated: 2025/11/13 14:14:30 by mtaleb           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ static void	hitwall(t_game *cub, t_dda *dda, t_ray *ray)
 	hit = 0;
 	while (hit == 0)
 	{
-		if (dda->sidedistx < dda->sidedisty)
+		if (dda->sidedistx <= dda->sidedisty)
 		{
 			dda->sidedistx += dda->deltadistx;
 			dda->mapx += dda->stepx;

@@ -6,7 +6,7 @@
 /*   By: mtaleb <mtaleb@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/24 09:59:49 by mtaleb            #+#    #+#             */
-/*   Updated: 2025/10/24 11:24:53 by mtaleb           ###   ########.fr       */
+/*   Updated: 2025/11/15 14:34:56 by mtaleb           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,11 @@
 # include <ctype.h>
 # include <errno.h>
 # include <fcntl.h>
-# include <limits.h>
 # include <math.h>
 # include <stdio.h>
-# include <stdlib.h>
 # include <string.h>
 # include <unistd.h>
+
 # define M_PI 3.14159265358979323846
 # define WIDTH 800
 # define HEIGHT 480

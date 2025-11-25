@@ -6,7 +6,7 @@
 /*   By: mtaleb <mtaleb@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/24 09:32:31 by mtaleb            #+#    #+#             */
-/*   Updated: 2025/10/24 09:32:58 by mtaleb           ###   ########.fr       */
+/*   Updated: 2025/11/14 11:01:48 by mtaleb           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ char	*get_trimed(int fd)
 	char	*result;
 
 	line = get_next_line(fd);
-	result = ft_strtrim(line, " \n");
+	result = ft_strtrim(line, "\n");
 	ft_free(line);
 	return (result);
 }
@@ -28,7 +28,7 @@ char	*ft_substr_space(char **s)
 	char	*start;
 
 	start = *s;
-	while (**s && !ft_iswhitespace(**s))
+	while (**s && **s != ' ')
 		(*s)++;
 	if (*s == start)
 		return (NULL);

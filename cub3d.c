@@ -6,7 +6,7 @@
 /*   By: mtaleb <mtaleb@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/24 09:58:00 by mtaleb            #+#    #+#             */
-/*   Updated: 2025/10/24 09:59:30 by mtaleb           ###   ########.fr       */
+/*   Updated: 2025/11/15 14:31:55 by mtaleb           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,17 @@ t_game	*getmemory(void)
 int	main(int ac, char **av)
 {
 	t_game	*cub;
+	char	*dot;
 
-	(void)ac;
+	if (ac != 2)
+	{
+		ft_putstr_fd("Error\n", 2);
+		exit(1);
+	}
+	dot = ft_strrchr(av[1], '.');
+	if (!dot || dot == av[1] || *(dot - 1) == '/'
+		|| ft_strcmp(dot, ".cub") != 0)
+		errors("Error\nInvalid map extension Expected '.cub'\n", 1);
 	cub = getmemory();
 	parser(cub, av[1]);
 	initgame(cub);
@@ -38,6 +47,3 @@ int	main(int ac, char **av)
 	mlx_loop_hook(cub->mlx, render_frame, cub);
 	mlx_loop(cub->mlx);
 }
-
-// merge errors and destroy
-// change get next line

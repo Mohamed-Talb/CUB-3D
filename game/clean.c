@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   clean.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kel-mous <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: mtaleb <mtaleb@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/24 18:50:32 by kel-mous          #+#    #+#             */
-/*   Updated: 2025/10/24 18:50:37 by kel-mous         ###   ########.fr       */
+/*   Updated: 2025/11/26 13:53:20 by mtaleb           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,13 @@
 int	destroy(t_game *cub)
 {
 	if (cub->textures->wall_no.img)
-	{
 		mlx_destroy_image(cub->mlx, cub->textures->wall_no.img);
+	if (cub->textures->wall_so.img)
 		mlx_destroy_image(cub->mlx, cub->textures->wall_so.img);
+	if (cub->textures->wall_we.img)
 		mlx_destroy_image(cub->mlx, cub->textures->wall_we.img);
+	if (cub->textures->wall_ea.img)
 		mlx_destroy_image(cub->mlx, cub->textures->wall_ea.img);
-	}
 	if (cub->screen.img)
 		mlx_destroy_image(cub->mlx, cub->screen.img);
 	if (cub->win)

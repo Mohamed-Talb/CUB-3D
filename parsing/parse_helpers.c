@@ -6,7 +6,7 @@
 /*   By: mtaleb <mtaleb@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/24 09:32:31 by mtaleb            #+#    #+#             */
-/*   Updated: 2025/11/14 11:01:48 by mtaleb           ###   ########.fr       */
+/*   Updated: 2025/11/26 16:57:40 by mtaleb           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,33 +23,19 @@ char	*get_trimed(int fd)
 	return (result);
 }
 
-char	*ft_substr_space(char **s)
+char	*sidescheck(char *line)
 {
-	char	*start;
+	char	**path;
+	char	*result;
 
-	start = *s;
-	while (**s && **s != ' ')
-		(*s)++;
-	if (*s == start)
-		return (NULL);
-	return (ft_substr(start, 0, *s - start));
-}
-
-t_list	*tokenize(char *str, char *(*rule)(char **))
-{
-	t_list	*head;
-	char	*text;
-
-	head = NULL;
-	while (*str)
-	{
-		text = rule(&str);
-		if (text == NULL)
-			str++;
-		else
-			ft_lstadd_back(&head, ft_lstnew(text));
-	}
-	return (head);
+	if (!in_set(WHITESPACES, *line))
+		errors("Error\nInvalide components\n", 1);
+	path = ft_splitpro(line, ft_iswhitespace);
+	if (ft_strlen2(path) != 1)
+		errors("Error\nInvalide components\n", 1);
+	result = ft_strdup(path[0]);
+	ft_freedouble(path);
+	return (result);
 }
 
 void	initeyes(t_game *cub)

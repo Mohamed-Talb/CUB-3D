@@ -6,7 +6,7 @@
 /*   By: mtaleb <mtaleb@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/24 09:59:49 by mtaleb            #+#    #+#             */
-/*   Updated: 2025/11/15 14:34:56 by mtaleb           ###   ########.fr       */
+/*   Updated: 2025/11/26 17:02:15 by mtaleb           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,9 +60,8 @@ void			initeyes(t_game *cub);
 void			checkwalls(t_map *map);
 void			components(t_game *cub);
 void			mapvalidation(t_map *map);
-char			*ft_substr_space(char **s);
 void			parser(t_game *cub, char *file);
-t_list			*tokenize(char *str, char *(*rule)(char **));
+char			*sidescheck(char *line);
 
 // INITIALIZATIONS
 int				init_addr(t_game *cub);

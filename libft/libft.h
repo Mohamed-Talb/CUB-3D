@@ -6,7 +6,7 @@
 /*   By: mtaleb <mtaleb@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/04 15:32:07 by mtaleb            #+#    #+#             */
-/*   Updated: 2025/11/10 09:32:57 by mtaleb           ###   ########.fr       */
+/*   Updated: 2025/11/26 16:58:16 by mtaleb           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include <stdlib.h>
 # include <unistd.h>
 
+# define WHITESPACES " \f\n\r\t\v"
 # define MAX 2147483648
 # define L_OVERFLOW 9223372036854775808ULL
 
@@ -36,7 +37,6 @@ void				ft_free(void *ptr);
 char				*ft_itoa(int n);
 void				ft_putchar(char c);
 void				ft_putstr(char *s);
-int					atoi_sign(char *nptr);
 char				**ft_strdup2(char **str);
 char				*ft_uitoa(unsigned int n);
 char				*ft_strdup(const char *s);
@@ -52,6 +52,7 @@ int					respects_set(char *str, char *set);
 char				**ft_remove2(char **str, int index);
 char				*ft_strjoin(char const *s1, char const *s2);
 char				*ft_strtrim(char const *s1, char const *set);
+char				**ft_splitpro(char const *s, int (*rule)(char));
 char				*ft_strjoin_es(char *str, char *buff, int choice);
 char				*ft_strjoin_fc(char *str, char *buff, int choice);
 char				*ft_substr(char const *s, unsigned int start, size_t len);

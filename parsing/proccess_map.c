@@ -6,7 +6,7 @@
 /*   By: mtaleb <mtaleb@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/24 09:33:15 by mtaleb            #+#    #+#             */
-/*   Updated: 2025/11/14 10:51:20 by mtaleb           ###   ########.fr       */
+/*   Updated: 2025/11/26 16:47:04 by mtaleb           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,6 @@ void	mapvalidation(t_map *map)
 
 	start = 0;
 	i = 0;
-	checkwalls(map);
 	while (map->map[i])
 	{
 		j = 0;
@@ -47,6 +46,7 @@ void	mapvalidation(t_map *map)
 		}
 		i++;
 	}
+	checkwalls(map);
 	if (start != 1)
 		errors("Error\ninvalide elements\n", 1);
 }

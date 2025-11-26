@@ -6,7 +6,7 @@
 /*   By: mtaleb <mtaleb@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/24 10:23:52 by mtaleb            #+#    #+#             */
-/*   Updated: 2025/11/26 13:56:40 by mtaleb           ###   ########.fr       */
+/*   Updated: 2025/11/26 16:55:32 by mtaleb           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,12 +38,12 @@ void	initscreen(t_game *cub)
 {
 	cub->screen.img = mlx_new_image(cub->mlx, WIDTH, HEIGHT);
 	if (!cub->screen.img)
-		errors_destroy(cub, "Failed to load screen\n", 1);
+		errors_destroy(cub, "Error\nFailed to load screen\n", 1);
 	cub->screen.addr = mlx_get_data_addr(cub->screen.img,
 			&cub->screen.bits_per_pixel, &cub->screen.line_length,
 			&cub->screen.endian);
 	if (!cub->screen.addr)
-		errors_destroy(cub, "Failed to load screen\n", 1);
+		errors_destroy(cub, "Error\nFailed to load screen\n", 1);
 }
 
 void	init_textures(t_game *cub)
@@ -63,7 +63,7 @@ void	init_textures(t_game *cub)
 	if (!(cub->textures->wall_no.img) || !(cub->textures->wall_so.img)
 		|| !(cub->textures->wall_we.img) || !(cub->textures->wall_ea.img)
 		|| !init_addr(cub))
-		errors_destroy(cub, "Failed to load screen\n", 1);
+		errors_destroy(cub, "Error\nFailed to load textures\n", 1);
 }
 
 void	init_player(t_game *cub)

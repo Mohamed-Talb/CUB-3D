@@ -30,13 +30,13 @@ int	main(int ac, char **av)
 
 	if (ac != 2)
 	{
-		ft_putstr_fd("Error\n", 2);
+		ft_putstr_fd("Error\ninvalid args\n", 2);
 		exit(1);
 	}
 	dot = ft_strrchr(av[1], '.');
 	if (!dot || dot == av[1] || *(dot - 1) == '/'
 		|| ft_strcmp(dot, ".cub") != 0)
-		errors("Error\nInvalid map extension Expected '.cub'\n", 1);
+		errors("Error\nInvalid map extension Expected '*.cub'\n", 1);
 	cub = getmemory();
 	parser(cub, av[1]);
 	initgame(cub);

@@ -14,14 +14,6 @@
 
 int	init_addr(t_game *cub)
 {
-	cub->textures->wall_ea.addr = mlx_get_data_addr(cub->textures->wall_ea.img,
-			&cub->textures->wall_ea.bits_per_pixel,
-			&cub->textures->wall_ea.line_length,
-			&cub->textures->wall_ea.endian);
-	cub->textures->wall_we.addr = mlx_get_data_addr(cub->textures->wall_we.img,
-			&cub->textures->wall_we.bits_per_pixel,
-			&cub->textures->wall_we.line_length,
-			&cub->textures->wall_we.endian);
 	cub->textures->wall_no.addr = mlx_get_data_addr(cub->textures->wall_no.img,
 			&cub->textures->wall_no.bits_per_pixel,
 			&cub->textures->wall_no.line_length,
@@ -30,8 +22,16 @@ int	init_addr(t_game *cub)
 			&cub->textures->wall_so.bits_per_pixel,
 			&cub->textures->wall_so.line_length,
 			&cub->textures->wall_so.endian);
-	return (cub->textures->wall_ea.addr && cub->textures->wall_we.addr
-		&& cub->textures->wall_no.addr && cub->textures->wall_so.addr);
+	cub->textures->wall_we.addr = mlx_get_data_addr(cub->textures->wall_we.img,
+			&cub->textures->wall_we.bits_per_pixel,
+			&cub->textures->wall_we.line_length,
+			&cub->textures->wall_we.endian);
+	cub->textures->wall_ea.addr = mlx_get_data_addr(cub->textures->wall_ea.img,
+			&cub->textures->wall_ea.bits_per_pixel,
+			&cub->textures->wall_ea.line_length,
+			&cub->textures->wall_ea.endian);
+	return (cub->textures->wall_no.addr && cub->textures->wall_so.addr
+		&& cub->textures->wall_we.addr && cub->textures->wall_ea.addr);
 }
 
 void	initscreen(t_game *cub)

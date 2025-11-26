@@ -12,6 +12,20 @@
 
 #include "../cub3d.h"
 
+static int	count_occurence(char *str, char c)
+{
+	int	occurred;
+
+	occurred = 0;
+	while (*str)
+	{
+		if (*str == c)
+			occurred++;
+		str++;
+	}
+	return (occurred);
+}
+
 static int	get_color(t_list *values)
 {
 	char	*colors;
@@ -34,7 +48,7 @@ static int	get_color(t_list *values)
 			break ;
 		i++;
 	}
-	if (i != 3)
+	if (i != 3 || count_occurence(colors, ',') != 2)
 		errors("Error\ninvalid rgb syntax\n", 1);
 	ft_freedouble(parts);
 	return (create_trgb(255, rgb[0], rgb[1], rgb[2]));

@@ -13,7 +13,7 @@
 #ifndef CUB3D_H
 # define CUB3D_H
 
-# include "/usr/include/minilibx-linux/mlx.h"
+# include "minilibx-linux/mlx.h"
 # include "libft/libft.h"
 # include "game/structures.h"
 # include <ctype.h>

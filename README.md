@@ -9,8 +9,7 @@ This project recreates a simplified FIRST-PERSON MAZE EXPLORER using the MINILIB
 
 The project follows the official SUBJECT and respects THE NORM CODING STANDARD.
 
-SUBJECT: subject.pdf
-NORMINETTE: norm.pdf
+SUBJECT: [subject.pdf](./subject.pdf)
 
 ## **FEATURES**
 

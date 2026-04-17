@@ -1,10 +1,10 @@
-NO textures/planks.xpm
-SO textures/planks.xpm
-WE textures/planks.xpm
-EA textures/planks.xpm
+NO textures/darkStone.xpm
+SO textures/darkStone.xpm
+WE textures/darkStone.xpm
+EA textures/darkStone.xpm
 
-F 220,111,119
-C 225,111,0
+F 50,50,50
+C 50,50,50
 
  1111111111111111111111
 100000000000S00000000001

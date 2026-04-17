@@ -1,7 +1,8 @@
-NO textures/brown_walll.xpm
-SO textures/brown_walll.xpm
-WE textures/brown_walll.xpm
-EA textures/brown_walll.xpm
+WE textures/brownWall.xpm
+SO textures/brownWall.xpm
+NO textures/brownWall.xpm
+EA textures/brownWall.xpm
+
 
 C 5, 5, 5
 F 5, 5, 5

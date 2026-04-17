@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mtaleb <mtaleb@student.1337.ma>            +#+  +:+       +#+        */
+/*   By: NIOS <NIOS@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/24 09:59:49 by mtaleb            #+#    #+#             */
-/*   Updated: 2025/11/26 17:02:15 by mtaleb           ###   ########.fr       */
+/*   Updated: 2026/04/17 20:31:02 by NIOS             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 # include "minilibx-linux/mlx.h"
 # include "libft/libft.h"
-# include "game/structures.h"
+# include "rendring/structures.h"
 # include <ctype.h>
 # include <errno.h>
 # include <fcntl.h>
